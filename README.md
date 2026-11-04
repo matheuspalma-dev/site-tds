@@ -1,4 +1,4 @@
-# Site institucional da turma TDS do Colégio SOUZA NAVES, C E-EF M PROFIS
+# Site institucional do Colégio SOUZA NAVES, C E-EF M PROFIS
 
 Este documento descreve as diretrizes de contribuição e o fluxo de trabalho Git da nossa equipe de desenvolvimento.
 
