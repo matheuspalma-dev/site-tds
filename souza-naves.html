@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Colégio Souza Naves — Rolândia</title>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--n:#0b2a5b;--n2:#061c40;--bg:#fff;--ink:#0b2a5b;--soft:#eef3fb;--ln:#b9c8e4;--gold:#f2c14e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#071a3f;--ink:#eaf0ff;--soft:#0e2859;--ln:#2a4a86}}
+:root[data-theme=dark]{--bg:#071a3f;--ink:#eaf0ff;--soft:#0e2859;--ln:#2a4a86}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--n);z-index:60}
+h1,h2,h3,.h3,.pr{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;line-height:1.08;margin:0}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;transition:transform .15s,background .2s,color .2s}
+button:active{transform:scale(.95)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.bar{background:var(--n2);color:#fff;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 5vw}
+#ac{display:flex;gap:10px;align-items:center}
+.bar .btn{padding:3px 12px;font-size:14px}
+.bar .av{width:28px;height:28px;font-size:13px;border-width:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--n);color:#fff;display:flex;align-items:center;gap:20px;padding:10px 5vw;flex-wrap:wrap}
+.lg{display:flex;align-items:center;gap:10px;font:22px "Alfa Slab One",serif}
+nav{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+nav button{padding:8px 12px;color:#fff;border-bottom:3px solid transparent}
+nav button.on,nav button:hover{border-color:#fff}
+nav .shop{background:var(--gold);color:var(--n);font-weight:700;border-radius:99px;padding:8px 18px;border:0}
+.btn{background:var(--n);color:#fff;padding:10px 18px;font-weight:700;border:2px solid var(--ink);border-radius:4px;display:inline-block;cursor:pointer}
+.btn:hover{background:var(--bg);color:var(--ink)}
+.btn.w{background:#fff;color:var(--n);border-color:#fff}.btn.w:hover{background:transparent;color:#fff}
+.v{display:none;padding:0 5vw 60px}.v.on{display:block}
+#home{padding:0}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;background:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px) 0 0/30px 30px,linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px) 0 0/30px 30px,var(--n);color:#fff;padding:56px 5vw 96px;clip-path:polygon(0 0,100% 0,100% 90%,0 100%)}
+.hero h1{font-size:clamp(40px,6vw,76px);margin:8px 0 14px}
+.hero p{max-width:46ch}
+.cap::first-letter{text-transform:uppercase}
+.dt{font:600 28px Caveat,cursive;margin:0}
+.cb{border:10px solid #fff;background:#0a2350;box-shadow:0 0 0 3px var(--n2),8px 10px 0 rgba(0,0,0,.25);padding:18px 24px;font:600 27px/1.25 Caveat,cursive;color:#f4f7ff;transform:rotate(1.2deg)}
+.cb h3{font-size:22px;margin-bottom:8px}
+.cb ul{margin:0;padding:0}.cb li{list-style:none;border-bottom:2px dashed rgba(255,255,255,.35);padding:3px 0}
+.nx{margin-top:14px;font:700 15px "Atkinson Hyperlegible",sans-serif;background:#fff;color:var(--n);padding:8px 18px 8px 12px;display:inline-block;clip-path:polygon(0 0,100% 0,95% 50%,100% 100%,0 100%)}
+.doors{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;padding:30px 5vw 60px}
+.dr{grid-column:span 2;text-align:left;padding:26px 24px;background:var(--soft);outline:2px dashed var(--ink);outline-offset:-9px;min-height:150px}
+.dr.s3{grid-column:span 3}
+.h3{display:block;font-size:28px;margin-bottom:6px}
+.dr:hover{background:var(--n);color:#fff;outline-color:#fff}
+.dr.shop{background:var(--n);color:#fff;outline-color:var(--gold)}.dr.shop:hover{background:var(--gold);color:var(--n);outline-color:var(--n)}
+.ph{padding:44px 0 20px;display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:14px}
+.ph h2{font-size:clamp(32px,5vw,54px)}.ph p{margin:6px 0 0;max-width:54ch}
+.fo{max-width:760px}
+.cmp{border:2px solid var(--ink);padding:14px;display:grid;gap:10px;margin-bottom:22px}
+textarea,input[type=text],select{width:100%;padding:10px;border:2px solid var(--ln);background:var(--bg);border-radius:4px}
+.er{color:#d9363e;font-weight:700;min-height:1.4em;margin:0}
+.po{--pb:var(--bg);display:flex;gap:14px;padding:16px;border:2px solid var(--ln);margin-bottom:14px}
+.po p{margin:4px 0 8px;overflow-wrap:anywhere}
+.po.adm{--pb:var(--n);background:var(--n);color:#fff;border-color:var(--n)}
+.po.vip{border:3px solid transparent;background:linear-gradient(var(--pb),var(--pb)) padding-box,linear-gradient(90deg,#f2c14e,#fff6d0,#e0a21b,#f2c14e) border-box;background-size:100%,300% 100%;animation:sh 3s ease-in-out infinite alternate}
+@keyframes sh{to{background-position:0 0,100% 0}}
+@keyframes sh2{to{background-position:200% 0}}
+.hd{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.hd time{font-size:13px;opacity:.7}
+.gif{max-width:min(100%,320px);display:block;margin:6px 0;border-radius:4px}
+.lk{padding:2px 12px;border:2px solid currentColor;border-radius:99px;font-size:14px}
+.av{width:46px;height:46px;flex:none;border-radius:50%;background:var(--n) center/cover;color:#fff;display:grid;place-items:center;font:20px "Alfa Slab One",serif;font-style:normal;border:3px solid var(--ln)}
+.av.vp{border-color:var(--gold);box-shadow:0 0 0 2px var(--n),0 0 14px var(--gold)}
+.tg{font-size:12px;padding:1px 9px;border-radius:99px;background:var(--c,#555);color:#fff}
+.tg.vip{background:linear-gradient(90deg,#f2c14e,#fff1b8,#f2c14e) 0 0/200% 100%;color:#3a2a00;animation:sh2 2s linear infinite}
+.tg.adm{background:#fff;color:var(--n);border:2px solid var(--n)}
+.cg{display:grid;grid-template-columns:1.1fr .9fr;gap:34px}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.gr{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.gr b{text-align:center;font-size:13px}
+.d{aspect-ratio:1;border:2px solid var(--ln);background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-weight:700;min-width:0}
+.d:hover{border-color:var(--ink)}.d.td{background:var(--soft)}.d.sl{background:var(--n);color:#fff;border-color:var(--n)}.d.x{visibility:hidden}
+.dots{display:flex;gap:3px;height:9px}
+.dots s,.dt2{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 1.5px #fff}
+.k-int{background:#2a6df4!important}.k-trote{background:#d9363e!important}.k-esp{background:var(--gold)!important}
+.dots .mn{border-radius:0;background:none;border:2px solid currentColor;box-shadow:none}
+.nt{font-size:14px;opacity:.85;margin:0}
+.el{padding:0;margin:16px 0 0}.el li{list-style:none;padding:6px 0;border-bottom:2px solid var(--ln)}
+.tb{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tb>button{padding:6px 14px;border:2px solid var(--ink)}.tb>button.on{background:var(--n);color:#fff}
+.mu{columns:3 230px;column-gap:26px;padding-top:24px}
+figure{margin:0 0 32px;break-inside:avoid;background:#fff;color:#222;padding:10px 10px 12px;box-shadow:0 8px 0 rgba(6,28,64,.18);transform:rotate(var(--r));transition:transform .3s;position:relative}
+figure:hover{transform:rotate(0) scale(1.04);z-index:2}
+figure::before{content:"";position:absolute;top:-12px;left:42%;width:70px;height:22px;background:rgba(185,200,228,.85);transform:rotate(-3deg)}
+.pt{aspect-ratio:4/3;background:linear-gradient(160deg,#9db3da,#1d4388) center/cover;display:grid;place-items:center;color:#fff;font:34px "Alfa Slab One",serif}
+figcaption{font:600 22px/1.1 Caveat,cursive;padding-top:8px}
+.gs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px}
+.gm{display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 8px;font-weight:700;text-align:center;border:2px solid var(--ln)}
+.gm:hover{border-color:var(--ink);background:var(--soft)}
+.gm i{width:84px;height:84px;display:grid;place-items:center;background:var(--n);color:#fff;font:26px "Alfa Slab One",serif;font-style:normal;clip-path:var(--cp)}
+.vp2{display:grid;grid-template-columns:1.2fr 1fr;gap:26px;padding:34px;margin-bottom:30px;color:#fff;border:5px solid transparent;background:linear-gradient(var(--n),var(--n)) padding-box,linear-gradient(90deg,#f2c14e,#fff6d0,#e0a21b,#f2c14e) border-box;background-size:100%,300% 100%;animation:sh 3s ease-in-out infinite alternate}
+.vp2 h2{font-size:clamp(38px,6vw,66px);color:var(--gold)}.vp2 ul{padding-left:20px}
+.tgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.tc{border:2px solid var(--ink);padding:18px;display:grid;gap:12px;justify-items:start}
+.tc .tg{font-size:18px;padding:4px 16px}.pr{font-size:26px}
+.md{position:fixed;inset:0;background:rgba(6,28,64,.72);display:none;place-items:center;z-index:40;padding:16px}.md.on{display:grid}
+.bx{background:var(--bg);color:var(--ink);border:3px solid var(--ink);padding:26px;width:min(440px,100%);position:relative;display:grid;gap:12px;animation:pp .25s}
+@keyframes pp{from{transform:scale(.9);opacity:0}}
+.x{position:absolute;top:4px;right:12px;font-size:30px}
+.gg{display:flex;align-items:center;gap:10px;justify-content:center;background:#fff;color:#222;border:2px solid #444;padding:10px;font-weight:700}
+.ts{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:var(--n);color:#fff;padding:10px 18px;border:2px solid #fff;z-index:70;transition:.3s;pointer-events:none;max-width:90vw}.ts.on{transform:translate(-50%,0);opacity:1}
+#wp{position:fixed;inset:0;background:var(--n);z-index:55;transform:translateY(100%);pointer-events:none;display:grid;place-items:center}
+#wp.in,#wp.out{transition:transform .38s cubic-bezier(.7,0,.2,1)}#wp.in{transform:none}#wp.out{transform:translateY(-100%)}
+footer{background:var(--n2);color:#fff;padding:30px 5vw;text-align:center;font-size:14px}
+@media(max-width:800px){.hero,.cg,.vp2{grid-template-columns:1fr}.dr,.dr.s3{grid-column:span 6}nav{margin-left:0}}
+@media(prefers-reduced-motion:reduce){#wp{display:none}*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="bar"><span>Rolândia · Paraná</span><span id="ac"></span></div>
+<header>
+<div class="lg"><svg width="36" height="42" viewBox="0 0 38 44" aria-hidden="true"><path d="M2 2h34v22c0 10-9 16-17 19C11 40 2 34 2 24z" fill="#fff"/><path d="M8 8h22v16c0 6-5 10-11 13C13 34 8 30 8 24z" fill="#0b2a5b"/><text x="19" y="27" text-anchor="middle" font-family="Alfa Slab One,serif" font-size="13" fill="#fff">SN</text></svg>Souza Naves</div>
+<nav><button data-v="home" class="on">Início</button><button data-v="forum">Fórum</button><button data-v="games">Jogos</button><button data-v="cal">Cantina e agenda</button><button data-v="gal">Galeria</button><button data-v="shop" class="shop">Loja</button></nav>
+</header>
+
+<section class="v on" id="home">
+<div class="hero"><div><p class="dt cap" id="hd"></p><h1>Hoje no Souza Naves</h1><p>Cardápio da cantina, eventos do mês e a turma toda reunida num lugar só.</p><button class="btn w" data-v="cal">Ver o mês inteiro</button></div><div class="cb" id="hb"></div></div>
+<div class="doors">
+<button class="dr s3" data-v="forum"><strong class="h3">Fórum</strong><span>Converse, mande GIFs e acompanhe os recados da direção.</span></button>
+<button class="dr s3" data-v="games"><strong class="h3">Jogos</strong><span>Criados pelos próprios alunos da escola.</span></button>
+<button class="dr" data-v="cal"><strong class="h3">Cantina e agenda</strong><span>O prato do dia, interclasses e trotes.</span></button>
+<button class="dr" data-v="gal"><strong class="h3">Galeria</strong><span>Fotos históricas e alunos premiados.</span></button>
+<button class="dr shop" data-v="shop"><strong class="h3">Loja</strong><span>VIP e tags de cor para o seu perfil.</span></button>
+</div>
+</section>
+
+<section class="v" id="forum"><div class="ph"><div><h2>Fórum</h2><p>Recados da direção ficam fixos no topo. Quem é VIP ganha moldura dourada. Ofensas e discurso de ódio são bloqueados na hora.</p></div></div><div class="fo" id="fb"></div></section>
+<section class="v" id="games"><div class="ph"><div><h2>Jogos da turma</h2><p>Feitos por alunos do Souza Naves. Toque no logo para jogar.</p></div></div><div class="gs" id="gg"></div></section>
+<section class="v" id="cal"><div class="ph"><div><h2>Cantina e agenda</h2><p>Cardápio do dia, refeições especiais, interclasses, trotes e outros eventos. A direção atualiza tudo por aqui.</p></div></div><div id="cl"></div></section>
+<section class="v" id="gal"><div class="ph"><div><h2>Galeria</h2><p>Fotos históricas e alunos que venceram prêmios e competições. As fotos abaixo são de exemplo: troque pelas do acervo da escola.</p></div><div class="tb"><button data-a="flt:t">Todas</button><button data-a="flt:h">Históricas</button><button data-a="flt:p">Premiados</button><span id="ga"></span></div></div><div class="mu" id="gb"></div></section>
+<section class="v" id="shop"><div class="ph"><div><h2>Loja do Naves</h2><p>Destaque seu nome no fórum com o VIP ou escolha uma tag de cor.</p></div></div><div id="sb"></div></section>
+
+<footer>Colégio Souza Naves · Rolândia, Paraná · Protótipo do site da escola</footer>
+<div class="md" id="md"><div class="bx"><button class="x" aria-label="Fechar">×</button><div id="mb"></div></div></div>
+<div class="ts" id="ts" role="status"></div>
+<div id="wp"><svg width="90" height="104" viewBox="0 0 38 44" aria-hidden="true"><path d="M2 2h34v22c0 10-9 16-17 19C11 40 2 34 2 24z" fill="#fff"/><path d="M8 8h22v16c0 6-5 10-11 13C13 34 8 30 8 24z" fill="#0b2a5b"/></svg></div>
+
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0'),K=(y,m,d)=>y+'-'+pad(m+1)+'-'+pad(d),T=new Date(),TK=K(T.getFullYear(),T.getMonth(),T.getDate());
+const TG={cal:['Calouro','#1f9d63',4.9],ver:['Veterano','#d9363e',7.9],cra:['Craque','#7a4cf0',9.9],mes:['Mestre','#e07b00',12.9],len:['Lenda','#0091a8',14.9]};
+const KL={int:'Interclasse',trote:'Trote',esp:'Refeição especial',ev:'Evento'};
+const ME=['Arroz, feijão e frango grelhado;Salada de alface e tomate;Suco de laranja','Macarrão ao molho;Carne moída;Suco de uva','Arroz, feijão e omelete;Purê de batata;Suco de maracujá','Strogonoff de frango;Arroz e batata palha;Suco de limão','Pão com queijo;Bolo de cenoura;Leite com achocolatado'];
+const GL=[['1975','Turma do primeiro ano (exemplo)','h'],['1988','Desfile de 7 de setembro (exemplo)','h'],['1996','Festa junina da escola (exemplo)','h'],['2004','Time de handebol (exemplo)','h'],['2023','Medalha na Olimpíada de Matemática (exemplo)','p'],['2024','Campeões do concurso de redação (exemplo)','p'],['2025','Feira de Ciências: 1º lugar (exemplo)','p'],['2026','Torneio de robótica (exemplo)','p']];
+const GM=[['Quiz do Saber','QS'],['Corrida Numérica','123'],['Caça-Palavras','CP'],['Memória Naves','MN'],['Cobrinha Escolar','S'],['Forca Escolar','F']],CP=['polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%)','circle(50%)','inset(0 round 22px)','polygon(50% 0,100% 50%,50% 100%,0 50%)','polygon(0 0,100% 0,100% 60%,50% 100%,0 60%)','inset(0)'];
+const N=t=>t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[@4]/g,'a').replace(/3/g,'e').replace(/[1!|]/g,'i').replace(/0/g,'o').replace(/[$5]/g,'s').replace(/(.)\1+/g,'$1').replace(/[^a-z]+/g,' ').trim();
+const BW='porra caralho merda puta putaria fdp viado veado bicha buceta cuzao arrombado babaca retardado mongol crioulo nazista imbecil otario vagabunda piranha'.split(' ').map(N),BP=['se mata','vou te matar','morte aos','negro sujo','preto sujo','volta pra africa','odeio negros','odeio gays','odeio judeus'].map(N);
+const bad=t=>{const s=N(t),w=s.split(' ');return BW.some(b=>w.includes(b)||w.includes(b+'s'))||BP.some(p=>(' '+s+' ').includes(' '+p+' '))};
+
+function seed(){const y=T.getFullYear(),m=T.getMonth(),n=new Date(y,m+1,0).getDate(),s={us:{},uk:null,p:[],m:{},e:{},g:[]};
+for(let d=1;d<=n;d++){const w=new Date(y,m,d).getDay();if(w>0&&w<6)s.m[K(y,m,d)]=ME[d%5]}
+const E=(d,t,k)=>{const x=K(y,m,d);(s.e[x]=s.e[x]||[]).push({t,k})};
+E(9,'Abertura das Interclasses','int');E(10,'Jogos das Interclasses','int');E(11,'Final das Interclasses','int');E(13,'Dia do cachorro-quente','esp');E(17,'Trote solidário dos calouros','trote');E(24,'Feira de Ciências','ev');E(26,'Pizza da turma','esp');
+s.p=[{n:'Direção',adm:1,tags:[],t:'Bem-vindos ao fórum do Souza Naves! Aqui vale o respeito: ofensas e discurso de ódio são bloqueados automaticamente.',d:Date.now()-864e5,l:12},{n:'Marina R.',vip:1,tags:['len'],t:'Quem vai jogar o Quiz do Saber na quinta? Quero montar um time!',d:Date.now()-18e6,l:5},{n:'Pedro H.',tags:['cra'],t:'O cardápio de hoje está muito bom. Quero repetir!',d:Date.now()-36e5,l:2}];return s}
+let S;try{S=JSON.parse(localStorage.getItem('sn3'))}catch(e){}
+S=S||seed();
+const sv=()=>{try{localStorage.setItem('sn3',JSON.stringify(S))}catch(e){toast('Memória do navegador cheia: a imagem não foi salva.')}};
+const me=()=>S.uk&&S.us[S.uk];
+const ago=t=>{const m=Math.round((Date.now()-t)/6e4);return m<1?'agora':m<60?m+' min':m<1440?Math.round(m/60)+' h':Math.round(m/1440)+' d'};
+const chips=u=>(u.adm?'<b class="tg adm">ADM</b>':'')+(u.vip?'<b class="tg vip">★ VIP</b>':'')+(u.tags||[]).map(t=>`<b class="tg" style="--c:${TG[t][1]}">${TG[t][0]}</b>`).join('');
+const av=u=>`<i class="av${u.vip?' vp':''}"${u.av?` style="background-image:url('${u.av}')"`:''}>${u.av?'':esc(u.n[0]||'?')}</i>`;
+const brl=v=>'R$ '+v.toFixed(2).replace('.',',');
+let tt;const toast=m=>{const t=$('#ts');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2800)};
+const modal=h=>{$('#mb').innerHTML=h;$('#md').classList.add('on')},close=()=>$('#md').classList.remove('on');
+let cur='home',busy=0,PG=null,gk='t',cy=T.getFullYear(),cm=T.getMonth(),sel=TK;
+
+function show(v){cur=v;document.querySelectorAll('.v').forEach(s=>s.classList.toggle('on',s.id==v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==v));scrollTo(0,0);R[v]()}
+function go(v){if(busy||v==cur)return;busy=1;const w=$('#wp');w.className='in';setTimeout(()=>{show(v);w.className='out'},400);setTimeout(()=>{w.className='';busy=0},820)}
+function acct(){const u=me();$('#ac').innerHTML=u?`<button data-a="profile" class="hd" style="color:#fff">${av(u)}<span>${esc(u.n)}</span>${chips(u)}</button><button class="btn w" data-a="logout">Sair</button>`:`<button class="btn w" data-a="login">Entrar com Google</button>`}
+const lines=m=>`<ul>${m.split(';').map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
+const adm=()=>`<div class="cmp" style="margin-top:18px"><strong>Painel do administrador</strong><input type="text" id="am" value="${esc(S.m[sel]||'')}" placeholder="Cardápio: separe os pratos com ;"><button class="btn" data-a="sm">Salvar cardápio</button><select id="ak">${Object.keys(KL).map(k=>`<option value="${k}">${KL[k]}</option>`).join('')}</select><input type="text" id="at" placeholder="Nome do evento"><button class="btn" data-a="se">Adicionar ao calendário</button></div>`;
+
+const R={
+home(){$('#hd').textContent=T.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'});const m=S.m[TK],nx=Object.keys(S.e).filter(k=>k>=TK).sort()[0],e=nx&&S.e[nx][0];
+$('#hb').innerHTML=`<h3>Cantina hoje</h3>${m?lines(m):'<p>Sem cardápio publicado para hoje.</p>'}${e?`<span class="nx">${new Date(nx+'T12:00').toLocaleDateString('pt-BR',{day:'numeric',month:'short'})}: ${esc(e.t)}</span>`:''}`},
+forum(){const u=me();$('#fb').innerHTML=(u?`<div class="cmp"><textarea id="tx" rows="3" maxlength="400" placeholder="Escreva algo para a turma…"></textarea><p class="er" id="er"></p><div class="hd"><label class="btn">GIF<input type="file" accept="image/gif" hidden data-f="gf"></label><span class="nt" id="gn"></span><button class="btn" data-a="send" style="margin-left:auto">Publicar</button></div></div>`:`<div class="cmp"><p style="margin:0">Entre com sua conta para participar do fórum.</p><button class="btn" data-a="login">Entrar com Google</button></div>`)+S.p.map((p,i)=>[p,i]).sort((a,b)=>(b[0].adm||0)-(a[0].adm||0)||b[0].d-a[0].d).map(([p,i])=>`<article class="po${p.adm?' adm':''}${p.vip?' vip':''}">${av(p)}<div><div class="hd"><strong>${esc(p.n)}</strong>${chips(p)}<time>${ago(p.d)}</time></div><p>${esc(p.t)}</p>${p.g?`<img class="gif" src="${p.g}" alt="GIF enviado">`:''}<button class="lk" data-a="like:${i}">♥ ${p.l||0}</button></div></article>`).join('')},
+games(){$('#gg').innerHTML=GM.map((g,i)=>`<button class="gm" data-a="game:${i}"><i style="--cp:${CP[i]}">${g[1]}</i>${g[0]}</button>`).join('')},
+cal(){const u=me(),f=new Date(cy,cm,1).getDay(),n=new Date(cy,cm+1,0).getDate();
+let g=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].map(x=>`<b>${x}</b>`).join('')+'<i class="d x"></i>'.repeat(f);
+for(let d=1;d<=n;d++){const k=K(cy,cm,d),ev=S.e[k]||[];g+=`<button class="d${k==TK?' td':''}${k==sel?' sl':''}" data-a="day:${k}">${d}<span class="dots">${ev.map(e=>`<s class="k-${e.k}"></s>`).join('')}${S.m[k]?'<s class="mn"></s>':''}</span></button>`}
+const ev=S.e[sel]||[],mn=S.m[sel];
+$('#cl').innerHTML=`<div class="cg"><div><div class="mh"><button class="btn" data-a="mo:-1" aria-label="Mês anterior">‹</button><h3 class="cap">${new Date(cy,cm,1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'})}</h3><button class="btn" data-a="mo:1" aria-label="Próximo mês">›</button></div><div class="gr">${g}</div><p class="nt" style="margin-top:12px">${Object.keys(KL).map(k=>`<span style="margin-right:12px"><s class="dt2 k-${k}"></s> ${KL[k]}</span>`).join('')}<span>▢ Cardápio publicado</span></p></div><div><h3 class="cap">${new Date(sel+'T12:00').toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'})}</h3><div class="cb" style="margin-top:16px"><h3>Cantina</h3>${mn?lines(mn):'<p style="margin:0">Cardápio ainda não publicado.</p>'}</div><ul class="el">${ev.map((e,i)=>`<li><s class="dt2 k-${e.k}"></s> <b>${KL[e.k]}:</b> ${esc(e.t)}${u&&u.adm?` <button data-a="del:${i}" aria-label="Remover evento">×</button>`:''}</li>`).join('')||'<li>Sem eventos neste dia.</li>'}</ul>${u&&u.adm?adm():''}</div></div>`},
+gal(){const all=GL.map(([y,c,k])=>({y,c,k})).concat(S.g),u=me();$('#gb').innerHTML=all.filter(x=>gk=='t'||x.k==gk).map((x,i)=>`<figure style="--r:${[-2.5,1.8,-1,2.6][i%4]}deg"><div class="pt"${x.s?` style="background-image:url('${x.s}')"`:''}>${x.s?'':x.y}</div><figcaption>${esc(x.c)}</figcaption></figure>`).join('');document.querySelectorAll('.tb>button').forEach(b=>b.classList.toggle('on',b.dataset.a=='flt:'+gk));$('#ga').innerHTML=u&&u.adm?`<label class="btn">+ Adicionar foto<input type="file" accept="image/*" hidden data-f="ph"></label>`:''},
+shop(){const u=me();$('#sb').innerHTML=`<div class="vp2"><div><h2>Seja VIP</h2><p>Brilhe no fórum e no seu perfil.</p><ul><li>Moldura dourada animada nas suas mensagens</li><li>Foto de perfil animada (GIF)</li><li>Selo ★ VIP ao lado do seu nome</li></ul></div><div style="align-self:end"><p class="pr" style="font-size:44px">R$ 19,90<small style="font:16px 'Atkinson Hyperlegible',sans-serif"> /mês</small></p><button class="btn w" data-a="buy:vip" style="margin-top:12px">${u&&u.vip?'Você já é VIP ★':'Quero ser VIP'}</button></div></div><div class="tgs">${Object.entries(TG).map(([k,t])=>`<div class="tc"><b class="tg" style="--c:${t[1]}">${t[0]}</b><span class="pr">${brl(t[2])}</span><button class="btn" data-a="buy:${k}">${u&&u.tags.includes(k)?'Você tem':'Comprar tag'}</button></div>`).join('')}</div>`}
+};
+
+const A={
+login(){modal(`<h3>Entrar</h3><input type="text" id="ln" placeholder="Seu nome (aparece no fórum)" maxlength="24"><label><input type="checkbox" id="la"> Entrar como administrador (só para testar)</label><button class="gg" data-a="gl"><b style="color:#4285f4;font:700 22px Arial">G</b> Continuar com Google</button><p class="nt">Prévia: no site oficial este botão abre a conta Google de verdade.</p>`)},
+gl(){const n=$('#ln').value.trim()||'Aluno',k=n.toLowerCase();S.us[k]=S.us[k]||{n,tags:[],vip:0,av:null};S.us[k].adm=$('#la').checked?1:0;S.uk=k;sv();close();acct();R[cur]();toast('Bem-vindo, '+n+'!')},
+logout(){S.uk=null;sv();close();acct();R[cur]();toast('Você saiu da conta.')},
+profile(){const u=me();modal(`<h3>${esc(u.n)}</h3><div class="hd">${av(u)}${chips(u)}</div><label class="btn">Trocar foto<input type="file" accept="image/*" hidden data-f="av"></label><p class="nt">${u.vip?'Seu perfil aceita GIFs animados.':'Foto animada (GIF) é benefício VIP. Veja na Loja.'}</p><button class="btn" data-a="logout">Sair da conta</button>`)},
+send(){const u=me(),t=$('#tx').value.trim();if(!t&&!PG)return;if(bad(t)){$('#er').textContent='Mensagem bloqueada: o fórum não permite ofensas nem discurso de ódio. Reescreva com respeito.';return}
+S.p.push({n:u.n,av:u.av,adm:u.adm,vip:u.vip,tags:u.tags,t,g:PG,d:Date.now(),l:0});PG=null;sv();R.forum();toast('Publicado!')},
+like(i){S.p[i].l=(S.p[i].l||0)+1;sv();R.forum()},
+day(k){sel=k;R.cal()},
+mo(d){cm+=+d;if(cm>11){cm=0;cy++}if(cm<0){cm=11;cy--}sel=K(cy,cm,1);R.cal()},
+sm(){const v=$('#am').value.trim();v?S.m[sel]=v:delete S.m[sel];sv();R.cal();toast('Cardápio salvo!')},
+se(){const t=$('#at').value.trim();if(!t)return;(S.e[sel]=S.e[sel]||[]).push({t,k:$('#ak').value});sv();R.cal();toast('Evento adicionado!')},
+del(i){S.e[sel].splice(i,1);sv();R.cal()},
+flt(k){gk=k;R.gal()},
+game(i){toast('Aqui abre o jogo “'+GM[i][0]+'”.')},
+buy(k){const u=me();if(!u)return A.login();const v=k=='vip',t=v?['VIP','',19.9]:TG[k];if(v?u.vip:u.tags.includes(k))return toast('Você já tem este item.');
+modal(`<h3>${v?'Plano VIP':'Tag '+t[0]}</h3><p class="pr">${brl(t[2])}</p><p class="nt">Simulação: no site oficial entra aqui o pagamento por Pix ou cartão. Nenhum valor é cobrado.</p><button class="btn" data-a="pay:${k}">Confirmar pagamento de teste</button>`)},
+pay(k){const u=me();k=='vip'?u.vip=1:u.tags.push(k);sv();close();acct();R.shop();toast('Compra concluída!')}
+};
+
+function rd(f,k){const u=me(),ph=k=='ph';if(k=='av'&&f.type=='image/gif'&&!u.vip)return toast('GIF no perfil é benefício VIP.');
+if(f.size>(ph?2e6:4e5))return toast('Imagem grande demais (máximo '+(ph?'2 MB':'400 KB')+').');
+const r=new FileReader();r.onload=()=>{const d=r.result;
+if(k=='av'){u.av=d;sv();acct();close();toast('Foto atualizada!')}
+else if(k=='gf'){PG=d;$('#gn').textContent='GIF anexado: '+f.name}
+else{S.g.push({y:'Novo',c:'Foto nova',k:gk=='p'?'p':'h',s:d});sv();R.gal()}};r.readAsDataURL(f)}
+
+document.addEventListener('click',e=>{const b=e.target.closest('[data-v],[data-a]');if(!b)return;if(b.dataset.v){if(b.dataset.v=='games'){location.href='jogos.html';return}return go(b.dataset.v)}const[a,p]=b.dataset.a.split(':');A[a]&&A[a](p)});
+document.addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];f&&e.target.dataset.f&&rd(f,e.target.dataset.f)});
+$('#md').addEventListener('click',e=>{if(e.target.id=='md'||e.target.classList.contains('x'))close()});
+addEventListener('keydown',e=>e.key=='Escape'&&close());
+acct();show('home');
+</script>
+</body>
+</html>
