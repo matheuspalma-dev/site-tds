@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>Jogo</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="jogo.css">
+        <link rel="stylesheet" href="https://unpkg.com/pixel-borders@latest/src/styles/pixel-borders.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>  
+    </head>
+    <body>   
+
+        <div id="pagina_inteira">
+            <div id="em_breve" class="mapas pixel-borders pixel-borders--2 animate__animated animate__zoomIn" style="display:none">Em breve!</div>
+            <header>
+                <div id="mapas">Mapas</div>
+                <div id="ranking">Placares</div>
+                <div id="perfil">Perfil</div>
+            </header>
+
+            <main id="tela_mapas">
+                
+                <div class="auxiliar_do_auxiliar" id="rua">
+                    <div class="auxiliar_mapas" >
+                        <div class="mapas pixel-borders pixel-borders--4" id="a_rua"></div>
+                        <div class="highscore" id="highscore_1">highscore:0</div>
+                    </div>
+                </div>
+                
+
+                <div class="auxiliar_do_auxiliar" id="tribunal">
+                    <div class="auxiliar_mapas">
+                        <div class="mapas pixel-borders pixel-borders--4" id="o_tribunal"></div>
+                        <div class="highscore" id="highscore_2" >highscore:0</div>
+                    </div>
+                    
+                </div>
+                
+
+                <div class="auxiliar_do_auxiliar" id="prisao">
+                    <div class="auxiliar_mapas">
+                        <div class="mapas pixel-borders pixel-borders--4" id="a_prisao"></div>
+                        <div class="highscore" id="highscore_3">highscore:0</div>
+                    </div>
+                    
+                </div>
+            </main>
+
+            <section id="tela_ranking" style="display:none">
+                <!-- <h1>Aqui vai ficar o ranking</h1> -->
+                <div id="placares">
+                    <div id="selecionar_ranking">
+                        <h3 id="ranking_1">Mapa 01</h3>
+                        <h3 id="ranking_2">Mapa 02</h3>
+                        <h3 id="ranking_3">Mapa 03</h3>
+                    </div>
+
+                    <div id="mostrar_rankings">
+                        <div class="ranking primeiro" id="1">
+                            <h3>1</h3>
+                            <div>
+                                <h3 class="nome_ranking">...</h3>
+                                <h3 class="pontos_ranking">0</h3>
+                            </div>
+                            
+                        </div>
+                        <div class="ranking segundo" id="2">
+                            <h3>2</h3>
+                            <div>
+                                <h3 class="nome_ranking">...</h3>
+                                <h3 class="pontos_ranking">0</h3>
+                            </div>
+                            
+                        </div>
+                        <div class="ranking terceiro" id="3">
+                            <h3>3</h3>
+                           <div>
+                                <h3 class="nome_ranking">...</h3>
+                                <h3 class="pontos_ranking">0</h3>
+                           </div>
+                        </div>
+                        <div class="ranking quarto" id="4">
+                            <h3>4</h3>
+                            <div>
+                                <h3 class="nome_ranking">...</h3>
+                                <h3 class="pontos_ranking">0</h3>
+                            </div>
+                            
+                        </div>
+                        <div class="ranking quinto" id="5">
+                            <h3>5</h3>
+                            <div>
+                                <h3 class="nome_ranking">...</h3>
+                                <h3 class="pontos_ranking">0</h3>
+                            </div>
+                            
+                        </div>
+                        <div class="ranking outros" id="6">
+                            <h3>6</h3>
+                            <div>
+                                <h3 class="nome_ranking">...</h3>
+                                <h3 class="pontos_ranking">0</h3>
+                            </div>
+                            
+                        </div>
+                        <div class="ranking outros" id="7">
+                            <h3>7</h3>
+                            <div>
+                                <h3 class="nome_ranking">...</h3>
+                                <h3 class="pontos_ranking">0</h3>
+                            </div>
+                            
+                        </div>
+                        <div class="ranking outros" id="8">
+                            <h3>8</h3>
+                            <div>
+                                <h3 class="nome_ranking">...</h3>
+                                <h3 class="pontos_ranking">0</h3>
+                            </div>
+                            
+                        </div>
+                        <div class="ranking outros" id="9">
+                            <h3>9</h3>
+                            <div>
+                                <h3 class="nome_ranking">...</h3>
+                                <h3 class="pontos_ranking">0</h3>
+                            </div>
+                            
+                        </div>
+                        <div class="ranking outros" id="10">
+                            <h3>10</h3>
+                            <div>
+                                <h3 class="nome_ranking">...</h3>
+                                <h3 class="pontos_ranking">0</h3>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="tela_perfil" class="animate__animated animate__zoomIn"  style="display:none">
+                <h1 class="pixel-borders pixel-borders--2">Perfil do jogador</h1>
+                <div id="perfil_jogador" class="pixel-borders pixel-borders--3">
+                    <div id="opcoes_jogador">
+                        <div id="id_jogador" class="informacoes_jogador">
+                            <h4>ID do jogador</h4>
+                            <h4 id="id">#0000</h4>
+                        </div>
+                        <div id="nome_jogador" class="informacoes_jogador">
+                            <h4>Usuario</h4>
+                            <h4 id="nome">john doe</h4>
+                        </div>
+                        <div id="ranking_jogador" class="informacoes_jogador">
+                            <h4>Ranking</h4>
+                            <h4 id="ranking">>></h4>
+                        </div>
+                        <div id="sair" class="informacoes_jogador">
+                            <h4>Sair da conta</h4>
+                            <h4 id="botao_sair">>></h4>
+                        </div>
+                    </div>
+                </div> 
+            </section>
+        </div>
+
+        <div id="menu_sair" class="pixel-borders pixel-borders--3 animate__animated animate__zoomIn" style="display:none">
+            <h1>Tem certeza que deseja sair de sua conta?</h1>
+            <div id="botoes_sair">
+                <div id="sair_da_conta">Sair</div>
+                <div id="nao_sair_da_conta">Não sair</div>
+            </div>
+        </div>
+
+        <!--seleção do modo de jogo sozinho ou multiplayer -->
+
+        <div id="modos_jogo" class="animate__animated animate__zoomIn" style="display:none">
+            <h2 class="pixel-borders pixel-borders--2">Escolha o modo de jogo</h2>
+            <div id="botoes_modos" class="pixel-borders pixel-borders--3">
+                <div id="sozinho">Singleplayer</div>
+                <div id="multiplayer">Multiplayer</div>
+            </div>
+        </div>
+
+        <!--selecao de personagem-->
+
+        <iframe src="carrossel.html" style="display:none" id="selecionar_personagem"></iframe>
+
+        <!--salas multiplayer-->
+
+        <div id="salas" style="display:none">
+            
+            <div id="salas_online" class="pixel-borders pixel-borders--4 animate__animated animate__zoomIn">
+                <div id="criar_sala">
+                    <div>+ criar sala</div>
+                </div>
+                <div id="parte_baixo">
+                    <!-- <div class="sala pixel-borders pixel-borders--2" >
+                        <div class="nome_online">nome exemplo</div>
+                        <div class="criacao">Criado em <span>17/08 17:75</span></div>
+                    </div>
+
+                    <div class="sala pixel-borders pixel-borders--2">
+                        <div class="nome_online">farmador de aura</div>
+                        <div class="criacao">Criado em <span>17/08 17:75</span></div>
+                    </div>
+
+                    <div class="sala pixel-borders pixel-borders--2">
+                        <div class="nome_online">nome</div>
+                        <div class="criacao">Criado em <span>17/08 17:75</span></div>
+                    </div>
+
+                    <div class="sala pixel-borders pixel-borders--2">
+                        <div class="nome_online">larissa</div>
+                        <div class="criacao">Criado em <span>17/08 17:75</span></div>
+                    </div> -->
+                </div>
+                
+            </div>
+        </div>
+
+        <!--HUD da barra de vida-->
+
+        <div id="hud" style="display:none">
+            <div id="barra_vida" class="pixel-borders pixel-borders--4">
+                <div id="foto_personagem" class="pixel-borders pixel-borders--2"></div>
+                <div id="vida"></div>
+            </div>
+            <div id="lugar_pontuacao" class="pixel-borders pixel-borders--2">
+                <span>Pontuação:</span>
+                <span id="espaco"></span>
+                <span id="pontos_jogador">0</span>
+            </div>
+            <div id="efeitos"></div>
+        </div>
+
+        <!--HUD da barra de vida do boss_3 (Robo)-->
+
+        <div id="hud_boss_3" style="display:none">
+            <div id="nome_boss_3">ROBO</div>
+            <div id="barra_vida_boss_3">
+                <div id="vida_boss_3"></div>
+                <div id="texto_vida_boss_3">800/800</div>
+            </div>
+        </div>
+
+        <!--HUD da barra de vida do boss_2 (Harley) - tema Halloween, com aranha e teias de aranha-->
+
+        <div id="hud_boss_2" style="display:none">
+            <img src="assets/conteudo/mapa_2/hud/aranha.png" class="teia_canto teia_canto_esquerda" alt="">
+            <img src="assets/conteudo/mapa_2/hud/teia.png" class="teia_canto teia_canto_direita" alt="">
+            <img src="assets/conteudo/mapa_2/hud/aranha_2.png" class="aranha_canto" alt="">
+            <div class="aranha_pendurada">
+                <div class="fio_aranha"></div>
+                <img src="assets/conteudo/mapa_2/hud/aranha_3.png" class="aranha" alt="">
+            </div>
+            <div id="nome_boss_2">HARLEY</div>
+            <div id="barra_vida_boss_2">
+                <div id="vida_boss_2"></div>
+                <div id="texto_vida_boss_2">500/500</div>
+            </div>
+        </div>
+
+        <!--HUD da barra de vida do boss_1 (Lucas Lee) - tema gangue de rua/graffiti-->
+
+        <div id="hud_boss_1" style="display:none">
+            <div id="nome_boss_1">LUCAS LEE</div>
+            <div id="barra_vida_boss_1">
+                <div id="vida_boss_1"></div>
+                <div id="texto_vida_boss_1">200/200</div>
+            </div>
+        </div>
+
+        <!-- caso o jogador morra-->
+
+        <div id="morreu" class="menus animate__animated animate__zoomIn" style="display:none;">
+            <h1>Voce morreu!</h1>
+       
+            <button id="tentar_novamente">Tentar novamente</button>
+            <button id="configuracoes_morreu">Configuracoes</button>
+            <button id="voltar_menu">Voltar ao menu</button>
+            <!-- <button id="meme">Reviver(R$100,00)</button> -->
+        </div>
+
+        <div id="morreu_online" class="menus animate__animated animate__zoomIn" style="display:none;">
+            <h1>Voce morreu!</h1>
+
+            <button id="voltar_menu_online">Voltar ao menu</button>
+            <button id="configuracoes_morreu_online">Configuracoes</button>
+            
+            <!-- <button id="meme">Reviver(R$100,00)</button> -->
+        </div>
+
+        <!-- tela de pause-->
+
+        <div id="menu_pausa" class="menus animate__animated animate__zoomIn" style="display:none">
+            <button class="botoes_pausa" id="voltar_pausa">Continuar</button>
+            <button class="botoes_pausa" id="reiniciar_pausa">Reiniciar fase</button>
+            <button class="botoes_pausa" id="configuracoes_pausa">Configurações</button>
+            <button class="botoes_pausa" id="menu_pausar">Voltar ao menu</button>
+        </div>
+
+        <!-- tela de vitoria-->
+
+        <div id="menu_ganhou" class="animate__animated animate__zoomIn" style="display:none">
+            <h1 class="pixel-borders pixel-borders--2">Voce ganhou!</h1>
+            <div id="estatisticas">
+                <div class="estatisticas_valores">
+                    <p class="titulo_estatistica">Inimigos derrotados:</p>
+                    <p id="inimigos_derrotados">0</p>
+                </div>
+
+                <div class="estatisticas_valores">
+                    <p class="titulo_estatistica">Pontos obtidos:</p>
+                    <p id="pontos_obtidos">0</p>
+                </div>
+
+                <div class="estatisticas_valores">
+                    <p class="titulo_estatistica">Tempo total na fase:</p>
+                    <p id="tempo_total_fase">0</p>
+                </div>
+
+                <div class="estatisticas_valores">
+                    <p class="titulo_estatistica">Hits tomados:</p>
+                    <p id="hits_tomados">0</p>
+                </div>
+                <div class="estatisticas_valores" id="total">
+                    <p class="titulo_estatistica">Pontuação total:</p>
+                    <p id="pontos_totais">0</p>
+                </div>
+            </div>
+            <div id="botoes_ganhou" class="pixel-borders pixel-borders--2">
+                <button id="jogar_novamente_ganhou">Jogar novamente</button>
+                <button id="voltar_menu_ganhou">Voltar ao menu</button>
+            </div>
+        </div>
+
+        <!-- configuracoes-->
+
+        <div id="configuracoes_menu" style="display:none;">
+            <div class="configura">
+                <label for="musica">Música:</label>
+                <div name="musica" id="musica" class="ligada">< On ></div>
+            </div>
+
+            <div class="configura">
+                <label for="volume">Volume:</label>
+                <div name="volume" id="volume" class="50">< 50% ></div>
+            </div>
+
+            <div class="configura">
+                <label for="sfx">Desativar sfx:</label>
+                <div name="sfx" id="sfx" class="ligada"> < On ></div>
+            </div>
+        </div>    
+
+        <!--tela de pause online-->
+        
+        <div id="menu_pausa_online" class="menus animate__animated animate__zoomIn" style="display:none">
+            <button class="botoes_pausa" id="voltar_pausa_online">Continuar</button>
+            <button class="botoes_pausa" id="configuracoes_pausa_online">Configurações</button>
+            <button class="botoes_pausa" id="menu_pausar_online">Voltar ao menu</button>
+        </div>
+
+        <div id="game-container" style="display:none;"></div>
+        
+        <script src="./phaser.js"></script>
+        <script type="module" src="./src/main.js"></script>
+    </body>
+</html>

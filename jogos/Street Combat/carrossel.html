@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="carrossel.css">
+        <link rel="stylesheet" href="https://unpkg.com/pixel-borders@latest/src/styles/pixel-borders.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/> 
+    </head> 
+
+    <body class="fundo">
+        <div id="personagens">
+            <div id="carrossel">
+                <div class="personagem pixel-borders pixel-borders--2 mulher chapolin" id="skin_rosa">
+                    <div id="ramona_chapolin"></div>
+                </div>
+                
+                <div class="personagem pixel-borders pixel-borders--2 homem" id="skin_normal">
+                    <div id="scott"></div>
+                </div>
+
+                <div class="personagem pixel-borders pixel-borders--2 mulher" id="skin_rosa">
+                    <div id="ramona"></div>
+                </div>
+
+                <div class="personagem pixel-borders pixel-borders--2 mulher" id="skin_castanho">
+                    <div id="ramona_3"></div>
+                </div>
+
+                <div class="personagem pixel-borders pixel-borders--2 homem chapolin" id="skin_boxe">
+                    <div id="scott_boxe"></div>
+                </div>
+
+                <div class="personagem pixel-borders pixel-borders--2 mulher" id="skin_azul">
+                    <div id="ramona_2"></div>
+                </div>
+
+                
+                
+            </div>
+            
+        </div>
+        <script>
+            const items = [...document.querySelectorAll(".personagem")];
+
+            let personagem_atual = 1;
+
+            function atualizar() {
+                items.forEach((item, index) => {
+                    let posicao = index - personagem_atual;
+
+                    if (posicao > 1) {
+                        posicao -= items.length;
+                    }
+
+                    if (posicao < -1) {
+                        posicao += items.length;
+                    }
+
+                    item.classList.remove("esquerda", "centro", "direita", "escondido", "selecionado");
+
+                    if (posicao === -1) {
+                        item.classList.add("esquerda");
+                    } 
+                    else if (posicao === 0) {
+                        item.classList.add("centro");
+                        item.classList.add("selecionado");
+                    } 
+                    else if (posicao === 1) {
+                        item.classList.add("direita");
+                    }
+                    else {
+                        item.classList.add("escondido");
+                    }
+
+                });
+            }
+
+            function proximo() {
+                personagem_atual++;
+
+                if (personagem_atual >= items.length) {
+                    personagem_atual = 0;
+                }
+
+                atualizar();
+                }
+
+            function anterior() {
+                personagem_atual--;
+
+                if (personagem_atual < 0) {
+                    personagem_atual = items.length - 1;
+                }
+
+                atualizar();
+            }
+
+            window.addEventListener("message", (event) => {
+
+            if (event.data === "proximo") {
+                proximo();
+            }
+
+            if (event.data === "anterior") {
+                anterior();
+            }
+
+            if (event.data === "pegar_personagem") { 
+                const personagem_centro = document.querySelector(".personagem.centro"); 
+                if (personagem_centro) {
+                    // lê por NOME de classe, não por posição: o atualizar() adiciona
+                    // "centro"/"selecionado" no fim, então classList[4] virava "centro"
+                    // (truthy) nos personagens sem a classe "chapolin".
+                    const genero_personagem = personagem_centro.classList.contains("homem") ? "homem" : "mulher";
+                    const bonus = personagem_centro.classList.contains("chapolin");
+                    const skin_personagem = personagem_centro.id;
+                    event.source.postMessage( { 
+                        tipo: "personagem_selecionado", 
+                        genero: genero_personagem,
+                        skin: skin_personagem,
+                        bonus: bonus
+                    }, event.origin )
+                }
+            }
+
+        })
+            atualizar();
+        </script>
+    </body>
+
+</html>
