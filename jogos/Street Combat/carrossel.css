@@ -1,0 +1,378 @@
+* {
+    box-sizing: border-box;
+}
+
+#personagens{
+    position:fixed;
+    top:30px;
+    left:60px;
+    z-index:1000000 !important;
+}
+
+#carrossel {
+    position: relative;
+    /* width: 600px;
+    width:60vw;
+    width:170vh; */
+    width:calc(30vw + 85vh);
+    /* height:100vh; */
+    /* height: 350px; */
+    /* height:35vw; */
+    /* height:100vh; */
+    height:calc(17.5vw + 50vh);
+    perspective: 1000px;
+    /* background:red; */
+    /* background:red; */
+}
+
+.personagem {
+    position: absolute;
+    /* width: 200px; */
+    /* width:20vw; */
+    /* width:57vh; */
+    width:calc(10vw + 28.5vh);
+    /* height: 250px; */
+    /* height:25vw; */
+    /* height:70vh; */
+    height:calc(12.5vw + 35vh);
+
+    left: 50%;
+    /* top: 200px; */
+    /* top:20vw; */
+    /* top:55vh; */
+    top:calc(10vw + 27.5vh);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform-origin: center center;
+
+    transition:transform 0.5s ease,opacity 0.5s ease,filter 0.5s ease;
+
+    user-select: none;
+}
+
+.pixel-borders{
+    background:black !important;
+}
+
+/* Item da esquerda, atrás */
+.personagem.esquerda {
+    transform:
+    translate(-150%, -50%)
+    scale(0.7);
+    opacity: 0.3;
+    filter: blur(1px);
+    z-index: 1;
+}
+
+/* Item da frente */
+.personagem.centro {
+    transform:
+    translate(-50%, -50%)
+    scale(1);
+    opacity: 1;
+    filter: none;
+    z-index: 3;
+    background: #fff;
+    color: #111;
+}
+
+/* Item da direita, atrás */
+.personagem.direita {
+    transform:
+    translate(50%, -50%)
+    scale(0.7);
+    opacity: 0.3;
+    filter: blur(1px);
+    z-index: 1;
+}
+
+/* Personagens que não são um dos 3 visíveis (esquerda/centro/direita) */
+.personagem.escondido {
+    transform:
+    translate(-50%, -50%)
+    scale(0.4);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#scott{
+    width:42px;
+    height:84px;
+    background-image:url("assets/conteudo/scott/skin_normal/ScottParado42x84.png");
+    background-repeat:no-repeat;
+    background-position:0 0;
+    top:50%;
+    image-rendering: pixelated;
+    transform:scale(2.5) translate(25px, 15px);
+    
+}
+
+.personagem.selecionado #scott{
+    animation: animacao_scott 1s infinite steps(1);
+}
+
+.personagem.selecionado #scott_boxe{
+    animation: animacao_scott_boxe 1s infinite steps(1);
+}
+
+#scott_boxe{
+    width:61px;
+    height:84px;
+    background-image:url("assets/conteudo/scott/skin_boxe/ScottSoco261x84.png");
+    background-repeat:no-repeat;
+    background-position:0 0;
+    top:50%;
+    image-rendering: pixelated;
+    transform:scale(2.5) translate(25px, 15px);
+}
+
+@keyframes animacao_scott {
+
+    0% {
+        background-position: 0 0;
+        transform:scale(2.5) translate(25px, 15px);
+    }
+
+    12.5% {
+        background-position: -42px 0;
+        transform:scale(2.5) translate(25px, 15px);
+    }
+
+    25% {
+        background-position: -84px 0;
+        transform:scale(2.5) translate(25px, 15px);
+    }
+
+    37.5% {
+        background-position: -126px 0;
+        transform:scale(2.5) translate(25px, 15px);
+    }
+
+    50% {
+        background-position: 0 -84px;
+        transform:scale(2.5) translate(25px, 15px);
+    }
+
+    62.5% {
+        background-position: -42px -84px;
+        transform:scale(2.5) translate(25px, 15px);
+    }
+
+    75% {
+        background-position: -84px -84px;
+        transform:scale(2.5) translate(25px, 15px);
+    }
+
+    87.5% {
+        background-position: -126px -84px;
+        transform:scale(2.5) translate(25px, 15px);
+    }
+
+    100% {
+        background-position: 0 0;
+        transform:scale(2.5) translate(25px, 15px);
+    }
+}
+
+@keyframes animacao_scott_boxe {
+    0%, 16.65% {
+        background-image: url("assets/conteudo/scott/skin_boxe/ScottSoco261x84.png");
+        background-position: 0 0;
+    }
+    16.66%, 33.32% {
+        background-image: url("assets/conteudo/scott/skin_boxe/ScottSoco261x84.png");
+        background-position: -61px 0;
+    }
+    33.33%, 49.99% {
+        background-image: url("assets/conteudo/scott/skin_boxe/ScottSoco261x84.png");
+        background-position: 0 -84px;
+    }
+    50%, 66.65% {
+        background-image: url("assets/conteudo/scott/skin_boxe/ScottSoco261x84.png");
+        background-position: -61px -84px;
+    }
+    66.66%, 83.32% {
+        background-image: url("assets/conteudo/scott/skin_boxe/ScottSoco161x84.png");
+        background-position: 0 0;
+    }
+    83.33%, 100% {
+        background-image: url("assets/conteudo/scott/skin_boxe/ScottSoco161x84.png");
+        background-position: -61px 0;
+    }
+}
+
+#ramona{
+    width:31px;
+    height:84px;
+    background-image:url("assets/conteudo/ramona/skin_rosa/ramonaSemFundoParada31x84.png");
+    background-repeat:no-repeat;
+    background-position:0 0;
+    top:50%;
+    image-rendering: pixelated;
+    transform:scale(2.5) translate(25px, 15px);
+    
+}
+
+.personagem.selecionado #ramona{
+    animation: animacao_ramona 500ms infinite steps(1);
+}
+
+.personagem.selecionado #ramona_2, .personagem.selecionado #ramona_3 {
+    animation: animacao_ramona_2 500ms infinite steps(1);
+}
+
+#ramona_2{
+    width:31px;
+    height:84px;
+    background-image:url("assets/conteudo/ramona/skin_azul/ramonaParada40x84.png");
+    background-repeat:no-repeat;
+    background-position:0 0;
+    top:50%;
+    image-rendering: pixelated;
+    transform:scale(2.5) translate(25px, 15px);
+    
+}
+
+#ramona_3{
+    width:31px;
+    height:84px;
+    background-image:url("assets/conteudo/ramona/skin_castanho/ramonaSemFundoParada40x84.png");
+    background-repeat:no-repeat;
+    background-position:0 0;
+    top:50%;
+    image-rendering: pixelated;
+    transform:scale(2.5) translate(25px, 15px);
+    
+}
+
+@keyframes animacao_ramona {  
+    0% {     
+        background-position: 0 0;
+        transform:scale(2.5) translate(25px, 15px);
+    } 
+    20% {        
+        background-position: -31px 0;        
+       transform:scale(2.5) translate(25px, 15px);
+    }     
+    40% {       
+        background-position: -62px 0;   
+        transform:scale(2.5) translate(25px, 15px);
+         
+    }   
+    60% {        
+        background-position: 0 -84px; 
+        transform:scale(2.5) translate(25px, 15px);
+       
+    }   
+    80% {        
+        background-position: -31px -84px;
+        transform:scale(2.5) translate(25px, 15px);
+      
+    }          
+    100% {        
+        background-position: 0 0;
+        transform:scale(2.5) translate(25px, 15px);
+            
+    }
+}
+
+@keyframes animacao_ramona_2 {  
+    0% {     
+        background-position: 0 0;
+        transform:scale(2.5) translate(25px, 15px);
+    } 
+    20% {        
+        background-position: -40px 0;        
+       transform:scale(2.5) translate(25px, 15px);
+    }     
+    40% {       
+        background-position: -80px 0;   
+        transform:scale(2.5) translate(25px, 15px);
+         
+    }   
+    60% {        
+        background-position: 0 -84px; 
+        transform:scale(2.5) translate(25px, 15px);
+       
+    }   
+    80% {        
+        background-position: -40px -84px;
+        transform:scale(2.5) translate(25px, 15px);
+      
+    }          
+    100% {        
+        background-position: 0 0;
+        transform:scale(2.5) translate(25px, 15px);
+            
+    }
+}
+
+#ramona_chapolin{
+    width: 77px;
+    height: 84px;
+
+    background-image: url("assets/conteudo/ramona/martelo_chapolin/ramonaMarteloChapolin77x84.png") !important;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+
+    image-rendering: pixelated;
+
+    transform: scale(2.2) translate(25px, 20px);
+
+    
+}
+
+.personagem.selecionado #ramona_chapolin{
+    animation: animacao_chapolin 1s steps(1) infinite;
+}
+
+@keyframes animacao_chapolin {
+    0% {
+        background-position: 0 0;
+        transform: scale(2.2) translate(25px, 20px);
+    }
+
+    12.5% {
+        background-position: -77px 0;
+        transform: scale(2.2) translate(25px, 20px);
+    }
+
+    25% {
+        background-position: -154px 0;
+        transform: scale(2.2) translate(25px, 20px);
+    }
+
+    37.5% {
+        background-position: 0 -84px;
+        transform: scale(2.2) translate(25px, 20px);
+    }
+
+    50% {
+        background-position: -77px -84px;
+        transform: scale(2.2) translate(25px, 20px);
+    }
+
+    62.5% {
+        background-position: -154px -84px;
+        transform: scale(2.2) translate(25px, 20px);
+    }
+
+    75% {
+        background-position: 0 -168px;
+        transform: scale(2.2) translate(25px, 20px);
+    }
+
+    87.5% {
+        background-position: -77px -168px;
+        transform: scale(2.2) translate(25px, 20px);
+    }
+
+    100% {
+        background-position: 0 0;
+        transform: scale(2.2) translate(25px, 20px);
+    }
+}
