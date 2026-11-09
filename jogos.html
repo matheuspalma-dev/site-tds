@@ -1,75 +1,64 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Jogos — Colégio Souza Naves</title>
-<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root{--n:#0b2a5b;--n2:#061c40;--bg:#fff;--ink:#0b2a5b;--soft:#eef3fb;--ln:#b9c8e4;--gold:#f2c14e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root{--bg:#071a3f;--ink:#eaf0ff;--soft:#0e2859;--ln:#2a4a86}}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--n);z-index:60}
-h1,h2,h3,.h3{font-family:"Alfa Slab One",Georgia,serif;font-weight:400;line-height:1.08;margin:0}
-button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;transition:transform .15s,background .2s,color .2s}
-button:active{transform:scale(.97)}
-:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.bar{background:var(--n2);color:#fff;font-size:14px;padding:6px 5vw}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--n);color:#fff;display:flex;align-items:center;gap:20px;padding:10px 5vw;flex-wrap:wrap}
-.lg{display:flex;align-items:center;gap:10px;font:22px "Alfa Slab One",serif}
-nav{display:flex;gap:4px;margin-left:auto}
-nav a{padding:8px 12px;color:#fff;text-decoration:none;border-bottom:3px solid transparent}
-nav a:hover,nav a:focus-visible{border-color:#fff}
-main{padding:0 5vw 70px}
-.ph{padding:44px 0 26px}
-.ph h2{font-size:clamp(32px,5vw,54px)}
-.ph p{margin:6px 0 0;max-width:54ch}
-.gs{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;max-width:1100px;margin:0 auto}
-.gm{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:40px 24px;min-height:340px;background:var(--soft);border:2px solid var(--ln);outline:2px dashed var(--ink);outline-offset:-10px}
-.gm i{width:170px;height:170px;display:grid;place-items:center;background:var(--n);color:#fff;font:54px "Alfa Slab One",serif;font-style:normal;clip-path:var(--cp);transition:transform .25s}
-.gm .h3{font-size:clamp(24px,3vw,34px)}
-.gm span.d{max-width:34ch;font-size:16px;opacity:.85}
-.gm .go{background:var(--n);color:#fff;font-weight:700;padding:10px 26px;border-radius:99px}
-.gm:hover{background:var(--n);color:#fff;outline-color:#fff;border-color:var(--n)}
-.gm:hover i{transform:scale(1.08) rotate(-3deg);background:#fff;color:var(--n)}
-.gm:hover .go{background:var(--gold);color:var(--n)}
-.ts{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:var(--n);color:#fff;padding:10px 18px;border:2px solid #fff;z-index:70;transition:.3s;pointer-events:none;max-width:90vw}
-.ts.on{transform:translate(-50%,0);opacity:1}
-footer{background:var(--n2);color:#fff;padding:30px 5vw;text-align:center;font-size:14px}
-@media(min-width:621px){.gs .gm:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 14px)}}
-@media(max-width:620px){.gs{grid-template-columns:1fr}.gm{min-height:280px}.gm i{width:130px;height:130px;font-size:42px}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Jogos — Colégio Souza Naves</title>
+
+  <!-- Fontes do Google: Alfa Slab One (títulos) e Atkinson Hyperlegible (texto) -->
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos compartilhados com o resto do site -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Ajustes só desta página (precisa vir DEPOIS do style.css para sobrescrevê-lo) -->
+  <link rel="stylesheet" href="jogos.css">
 </head>
-<body>
-<div class="bar"><span>Rolândia · Paraná</span></div>
-<header>
-<div class="lg"><svg width="36" height="42" viewBox="0 0 38 44" aria-hidden="true"><path d="M2 2h34v22c0 10-9 16-17 19C11 40 2 34 2 24z" fill="#fff"/><path d="M8 8h22v16c0 6-5 10-11 13C13 34 8 30 8 24z" fill="#0b2a5b"/><text x="19" y="27" text-anchor="middle" font-family="Alfa Slab One,serif" font-size="13" fill="#fff">SN</text></svg>Souza Naves</div>
-<nav><a href="souza-naves.html">Início</a></nav>
-</header>
-<main>
-<div class="ph"><h2>Jogos da turma</h2><p>Feitos por alunos do Souza Naves. Toque no logo para jogar.</p></div>
-<div class="gs" id="gg"></div>
-</main>
-<footer>Colégio Souza Naves · Rolândia, Paraná · Protótipo do site da escola</footer>
-<div class="ts" id="ts" role="status"></div>
-<script>
-/* Para ligar cada jogo, preencha o "href" com o arquivo dele, por exemplo: 'quiz/quiz.html' */
-const GAMES=[
-{n:'MD Clicker',s:'MD',d:'Clique, compre upgrades e junte MD Coins o mais rápido que puder.',cp:'polygon(50% 0,100% 38%,82% 100%,18% 100%,0 38%)',href:'jogos/md-clicker/index.html'},
-{n:'Street Combat',s:'SC',d:'Clique, e veja se é capaz de zerar o Street Combat!',cp:'polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%)',href:'jogos/Street Combat/index.html'},
-{n:'Siberia',s:'SB',d:'Sobreviva ao frio extremo da Siberia pelo máximo de dias possível.',cp:'polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%)',href:'jogos/Siberia/index.html'},
-{n:'Corrida Numérica',s:'123',d:'Resolva contas rápido e chegue primeiro na linha de chegada.',cp:'circle(50%)',href:''},
-{n:'Caça-Palavras',s:'CP',d:'Encontre as palavras escondidas antes que o tempo acabe.',cp:'inset(0 round 22px)',href:''},
-{n:'Memória Naves',s:'MN',d:'Vire as cartas e encontre os pares do Souza Naves.',cp:'polygon(50% 0,100% 50%,50% 100%,0 50%)',href:''}
-];
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-document.getElementById('gg').innerHTML=GAMES.map((g,i)=>`<button class="gm" data-g="${i}"><i style="--cp:${g.cp}">${esc(g.s)}</i><strong class="h3">${esc(g.n)}</strong><span class="d">${esc(g.d)}</span><span class="go">Jogar</span></button>`).join('');
-let tt;
-function toast(m){const t=document.getElementById('ts');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2800)}
-document.addEventListener('click',e=>{const b=e.target.closest('[data-g]');if(!b)return;const g=GAMES[b.dataset.g];g.href?location.href=g.href:toast('Aqui abre o jogo “'+g.n+'”.')});
-</script>
+
+<!-- A classe "games-page" ativa os estilos específicos de jogos.css -->
+<body class="games-page">
+
+  <!-- Barra superior -->
+  <div class="bar"><span>Rolândia · Paraná</span></div>
+
+  <!-- Cabeçalho: logo (volta ao Início) e navegação -->
+  <header>
+    <a class="lg" href="index.html" aria-label="Souza Naves — voltar para Início">
+      <!-- Brasão em SVG com as iniciais "SN" -->
+      <svg width="36" height="42" viewBox="0 0 38 44" aria-hidden="true" draggable="false">
+        <path d="M2 2h34v22c0 10-9 16-17 19C11 40 2 34 2 24z" fill="#fff"/>
+        <path d="M8 8h22v16c0 6-5 10-11 13C13 34 8 30 8 24z" fill="#0b2a5b"/>
+        <text x="19" y="27" text-anchor="middle" font-family="Alfa Slab One,serif" font-size="13" fill="#fff">SN</text>
+      </svg>
+      <span>Souza Naves</span>
+    </a>
+
+    <nav aria-label="Navegação principal">
+      <a href="index.html" aria-label="Ir para Início">Início</a>
+    </nav>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <!-- Título e descrição da página -->
+    <div class="ph">
+      <h2>Jogos da turma</h2>
+      <p>Feitos por alunos do Souza Naves. Toque no logo para jogar.</p>
+    </div>
+
+    <!-- Grade de jogos: os cartões são criados pelo jogos.js -->
+    <div class="gs" id="gg"></div>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>Colégio Souza Naves · Rolândia, Paraná · Protótipo do site da escola</footer>
+
+  <!-- Mensagem temporária (toast) usada pelo jogos.js -->
+  <div class="ts" id="ts" role="status"></div>
+
+  <!-- Lógica da página (no fim do body para que os elementos acima já existam) -->
+  <script src="jogos.js"></script>
 </body>
+
 </html>

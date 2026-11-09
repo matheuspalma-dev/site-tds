@@ -1,0 +1,182 @@
+/* ==========================================================================
+   JOGOS — estilos específicos da página jogos.html
+   Ajustes para compartilhar a navegação e a grade do Início.
+   Carregar DEPOIS do style.css. Todas as regras começam com .games-page
+   para não afetar as outras páginas.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. Layout da página
+   -------------------------------------------------------------------------- */
+
+/* Conteúdo centralizado, com largura máxima igual à do Início */
+.games-page main {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: 0 clamp(20px, 5vw, 64px) 60px;
+}
+
+/* Grade de jogos: 2 colunas */
+.games-page .gs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.games-page footer {
+  margin-top: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. Cartão de jogo (.gm)
+   -------------------------------------------------------------------------- */
+
+.games-page .gm {
+  min-height: 340px;
+  padding: 40px 24px;
+  gap: 16px;
+}
+
+/* Ícone do jogo (a forma vem da variável --cp, definida pelo JS) */
+.games-page .gm i {
+  width: 170px;
+  height: 170px;
+  font-size: 54px;
+  transition: transform .2s cubic-bezier(.2, .7, .2, 1);
+}
+
+/* Descrição do jogo: anula o estilo de "célula de calendário" da classe .d
+   (que vem do style.css e também usa o nome "d") */
+.games-page .gm span.d {
+  display: block;
+  aspect-ratio: auto;
+  width: auto;
+  min-width: 0;
+  border: 0;
+  background: none;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+/* Falso botão "Jogar" dentro do cartão */
+.games-page .gm .go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 7px 20px;
+  background: var(--n);
+  color: #fff;
+  font-weight: 700;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 #061c4030;
+  transition: transform .2s cubic-bezier(.2, .7, .2, 1), background-color .2s ease, color .2s ease;
+}
+
+/* Ao passar o mouse no cartão, o botão "Jogar" sobe e fica dourado */
+.games-page .gm:hover .go {
+  transform: translateY(-1px);
+  background: var(--gold);
+  color: var(--ink);
+}
+
+
+/* --------------------------------------------------------------------------
+   3. Navegação (links <a>, já que esta página usa links em vez de botões)
+   -------------------------------------------------------------------------- */
+
+.games-page nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 9px 13px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 3px;
+  transition: background-color .2s ease, transform .2s cubic-bezier(.2, .7, .2, 1);
+}
+
+.games-page nav a:hover {
+  background: #ffffff18;
+  transform: translateY(-1px);
+}
+
+/* Linha dourada que cresce embaixo do link no hover */
+.games-page nav a::after {
+  content: "";
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  bottom: 5px;
+  height: 3px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .24s cubic-bezier(.2, .7, .2, 1);
+}
+
+.games-page nav a:hover::after {
+  transform: scaleX(1);
+}
+
+
+/* --------------------------------------------------------------------------
+   4. Responsivo
+   -------------------------------------------------------------------------- */
+
+/* Tablets pequenos e celulares: grade em 1 coluna e cartões menores */
+@media (max-width: 620px) {
+  .games-page .gs {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .games-page .gm {
+    min-height: 280px;
+    padding: 30px 20px;
+  }
+
+  .games-page .gm i {
+    width: 130px;
+    height: 130px;
+    font-size: 42px;
+  }
+}
+
+/* Celulares: menu rolável na horizontal */
+@media (max-width: 560px) {
+  .games-page nav {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    gap: 6px;
+    padding-bottom: 3px;
+  }
+
+  .games-page nav a {
+    white-space: nowrap;
+    flex: 0 0 auto;
+    padding: 8px 11px;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   5. Acessibilidade: movimento reduzido
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .games-page nav a,
+  .games-page nav a::after,
+  .games-page .gm i {
+    transition: none !important;
+  }
+}
