@@ -695,8 +695,10 @@ select {
    -------------------------------------------------------------------------- */
 
 .mu {
-  columns: 3 230px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 26px;
+  align-items: start;
   padding-top: 24px;
 }
 
@@ -1337,29 +1339,6 @@ select {
   height: 8px;
 }
 
-/* Galeria */
-.mu {
-  columns: 3 240px;
-  column-gap: 22px;
-}
-
-figure {
-  border-radius: 9px;
-  box-shadow: 0 10px 24px #061c4020;
-}
-
-figure:hover {
-  transform: translateY(-3px) rotate(0);
-}
-
-figure::before {
-  background: #e5c56f;
-}
-
-.pt {
-  border-radius: 5px;
-}
-
 /* Jogos */
 .gs {
   gap: 16px;
@@ -1595,7 +1574,7 @@ label.btn {
   }
 
   .mu {
-    columns: 2 145px;
+    grid-template-columns: repeat(2, 1fr);
     column-gap: 14px;
   }
 
@@ -1944,52 +1923,6 @@ select {
   border-radius: 3px;
 }
 
-/* Galeria: polaroids em papel, inclinações alternadas */
-.mu {
-  column-gap: 30px;
-}
-
-figure {
-  background: var(--paper);
-  color: #193451;
-  border-radius: 1px;
-  box-shadow: 3px 5px 0 #061c4020;
-  transition: transform .26s, box-shadow .26s;
-}
-
-figure:nth-child(3n+1) {
-  --tilt: -1.5deg;
-}
-
-figure:nth-child(3n+2) {
-  --tilt: 1.2deg;
-}
-
-figure:nth-child(3n) {
-  --tilt: -.5deg;
-}
-
-figure {
-  transform: rotate(var(--tilt));
-}
-
-figure:hover {
-  transform: rotate(0) translateY(-4px) scale(1.025);
-  box-shadow: 6px 10px 0 #061c4025;
-}
-
-figure::before {
-  background: #e2c46a;
-}
-
-figcaption {
-  color: #18395f;
-}
-
-.pt {
-  border-radius: 0;
-}
-
 /* Modal, toast e rodapé */
 .md {
   backdrop-filter: none;
@@ -2033,7 +1966,6 @@ footer {
 .v.on .cmp,
 .v.on .po,
 .v.on .gm,
-.v.on figure,
 .v.on .vp2,
 .v.on .tc {
   animation: school-enter .48s both;
@@ -2042,7 +1974,6 @@ footer {
 .v.on .dr:nth-child(2),
 .v.on .po:nth-child(2),
 .v.on .gm:nth-child(2),
-.v.on figure:nth-child(2),
 .v.on .tc:nth-child(2) {
   animation-delay: 55ms;
 }
@@ -2050,14 +1981,12 @@ footer {
 .v.on .dr:nth-child(3),
 .v.on .po:nth-child(3),
 .v.on .gm:nth-child(3),
-.v.on figure:nth-child(3),
 .v.on .tc:nth-child(3) {
   animation-delay: 100ms;
 }
 
 .v.on .dr:nth-child(4),
 .v.on .gm:nth-child(4),
-.v.on figure:nth-child(4),
 .v.on .tc:nth-child(4) {
   animation-delay: 145ms;
 }
@@ -2105,7 +2034,7 @@ footer {
   }
 
   .mu {
-    columns: 2 145px;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .v.on .ph,
@@ -2114,7 +2043,6 @@ footer {
   .v.on .cmp,
   .v.on .po,
   .v.on .gm,
-  .v.on figure,
   .v.on .vp2,
   .v.on .tc {
     animation-duration: .35s;
@@ -2280,7 +2208,6 @@ button,
 .lk,
 .gm,
 .dr,
-figure,
 .tc {
   transition-duration: .2s;
   transition-timing-function: var(--ease-school);
@@ -2290,7 +2217,6 @@ figure,
 .lk:hover,
 .gm:hover,
 .dr:hover,
-figure:hover,
 .tc:hover {
   will-change: transform;
 }
