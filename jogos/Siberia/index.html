@@ -23,7 +23,7 @@
         <!-- Set the background colour of the document -->
         <style>
             body {
-                background: #0;
+                background: #000;
                 color: #cccccc;
                 margin: 0px;
                 padding: 0px;
@@ -74,6 +74,28 @@
             }
             /* END - Custom Runner Styles */
             
+            .back-to-games {
+                position: fixed;
+                top: 14px;
+                left: 18px;
+                z-index: 10000;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 12px 20px;
+                border: 0;
+                border-radius: 9px;
+                background: #f2bb16;
+                color: #171717;
+                font: 700 16px/1.2 Arial, sans-serif;
+                text-decoration: none;
+                box-shadow: 0 3px 10px #0006;
+            }
+            .back-to-games:hover { background: #ffd447; }
+            .back-to-games:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+            @media (max-width: 520px) {
+                .back-to-games { top: 10px; left: 10px; padding: 10px 14px; font-size: 14px; }
+            }
         </style>
 
         <!-- Custom PostStyle code is injected here -->
@@ -90,6 +112,7 @@
     
 
     <body>
+        <a class="back-to-games" href="../../jogos.html" aria-label="Voltar para a lista de jogos">&#8592; Voltar ao site</a>
         <!-- Custom BodyStart code is injected here -->
         
 
