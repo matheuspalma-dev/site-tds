@@ -85,17 +85,15 @@ const ME = [
   'Pão com queijo;Bolo de cenoura;Leite com achocolatado'
 ];
 
-/** Galeria de exemplo: [ano, legenda, categoria]  (h = história, p = projetos). */
-const GL = [
-  ['1975', 'Turma do primeiro ano (exemplo)', 'h'],
-  ['1988', 'Desfile de 7 de setembro (exemplo)', 'h'],
-  ['1996', 'Festa junina da escola (exemplo)', 'h'],
-  ['2004', 'Time de handebol (exemplo)', 'h'],
-  ['2023', 'Medalha na Olimpíada de Matemática (exemplo)', 'p'],
-  ['2024', 'Campeões do concurso de redação (exemplo)', 'p'],
-  ['2025', 'Feira de Ciências: 1º lugar (exemplo)', 'p'],
-  ['2026', 'Torneio de robótica (exemplo)', 'p']
-];
+/**
+ * Galeria (Cloudinary): as fotos vêm direto da nuvem, sem mexer no código.
+ *   CLOUD = nome da sua conta (Cloud name, no painel do Cloudinary)
+ *   GT    = tags que viram filtros: [tag no Cloudinary, nome no botão]
+ * Cada foto precisa ter UMA dessas tags. A legenda é o campo "Description (alt)"
+ * da foto no Cloudinary (se estiver vazio, usa o "Title (caption)").
+ */
+const CLOUD = 'qmbdp1gb';
+const GT = [['escola', 'Escola'], ['alunos', 'Estudantes'], ['eventos', 'Eventos']];
 
 /** Lista de jogos: [nome, texto do ícone]. */
 const GM = [
@@ -236,7 +234,8 @@ const me = () => S.uk && S.us[S.uk];
 let cur = 'home';             // tela (view) atual
 let busy = 0;                 // 1 enquanto uma transição de tela está rodando
 let PG = null;                // GIF (base64) anexado ao post que está sendo escrito
-let gk = 't';                 // filtro da galeria: 't' = todas, 'h', 'p'
+let gk = 't';                 // filtro da galeria: 't' = todas ou o nome de uma tag (escola, alunos, eventos)
+let GP = { list: [], at: 0, busy: 0, err: 0 };   // fotos do Cloudinary (lista, hora da busca, carregando, erro)
 let cy = T.getFullYear();     // ano exibido no calendário
 let cm = T.getMonth();        // mês exibido no calendário
 let sel = TK;                 // dia selecionado no calendário
@@ -358,6 +357,37 @@ function go(v) {
    Cada função monta o HTML da sua tela. A chave deve ser igual ao id da <section>.
    ========================================================================== */
 
+/**
+ * Busca no Cloudinary a lista de fotos de cada tag (GT) e junta tudo em GP.list.
+ * Usa o endereço público https://res.cloudinary.com/<cloud>/image/list/<tag>.json
+ * (precisa estar liberado no painel: Settings > Security > "Resource list").
+ */
+function loadGal() {
+  GP.busy = 1;
+  return Promise.all(GT.map(([tag]) =>
+    fetch(`https://res.cloudinary.com/${CLOUD}/image/list/${tag}.json`)
+      .then(r => { if (!r.ok) throw 0; return r.json(); })
+      .then(j => (j.resources || []).map(r => [tag, r]))
+      .catch(() => null)
+  )).then(parts => {
+    const by = {};
+    parts.forEach(p => (p || []).forEach(([tag, r]) => {
+      const x = by[r.public_id] = by[r.public_id] || { tags: [], d: r.created_at || '' };
+      const c = (r.context && (r.context.custom || r.context)) || {};
+      const id = r.public_id.split('/').map(encodeURIComponent).join('/');
+      x.tags.push(tag);
+      x.c = c.alt || c.caption || '';
+      x.s = `https://res.cloudinary.com/${CLOUD}/image/upload/c_fill,g_auto,w_800,h_600,f_auto,q_auto/v${r.version}/${id}.${r.format}`.replace(/'/g, '%27');
+    }));
+    GP.err = parts.some(p => p === null);
+    GP.list = Object.values(by).sort((a, b) => b.d.localeCompare(a.d));
+    GP.at = Date.now();
+  }).finally(() => {
+    GP.busy = 0;
+    if (cur == 'gal') R.gal();
+  });
+}
+
 const R = {
 
   /** HOME: data de hoje, cardápio da cantina e próximo evento. */
@@ -465,28 +495,28 @@ const R = {
     $('#cl').innerHTML = `<div class="cg">${left}${right}</div>`;
   },
 
-  /** GALERIA: fotos (exemplos + enviadas) filtradas por categoria. */
+  /** GALERIA: fotos do Cloudinary filtradas pela tag escolhida. */
   gal() {
-    const all = GL.map(([y, c, k]) => ({ y, c, k })).concat(S.g);
-    const u = me();
+    // Busca de novo se a lista tiver mais de 1 minuto (o Cloudinary guarda cache de 60 s)
+    if (!GP.busy && Date.now() - GP.at > 6e4) loadGal();
 
-    // Figuras com leve rotação alternada; sem foto, mostra o ano no lugar
-    $('#gb').innerHTML = all
-      .filter(x => gk == 't' || x.k == gk)
-      .map((x, i) =>
-        `<figure style="--r:${[-2.5, 1.8, -1, 2.6][i % 4]}deg">` +
-        `<div class="pt"${x.s ? ` style="background-image:url('${x.s}')"` : ''}>${x.s ? '' : x.y}</div>` +
-        `<figcaption>${esc(x.c)}</figcaption></figure>`
-      ).join('');
+    const all = GP.list.filter(x => gk == 't' || x.tags.includes(gk));
+    const msg = t => `<p class="nt" style="grid-column:1/-1">${t}</p>`;
+
+    // Figuras com leve rotação alternada
+    $('#gb').innerHTML = all.length
+      ? all.map((x, i) =>
+          `<figure style="--r:${[-2.5, 1.8, -1, 2.6][i % 4]}deg">` +
+          `<div class="pt" style="background-image:url('${x.s}')" role="img" aria-label="${esc(x.c || 'Foto da galeria')}"></div>` +
+          `<figcaption>${esc(x.c)}</figcaption></figure>`
+        ).join('')
+      : msg(GP.busy && !GP.at ? 'Carregando fotos…'
+          : GP.err && !GP.list.length ? 'Não foi possível carregar as fotos agora. Tente de novo em instantes.'
+          : 'Nenhuma foto nesta categoria ainda.');
 
     // Marca o botão de filtro ativo
     document.querySelectorAll('.tb>button').forEach(b =>
       b.classList.toggle('on', b.dataset.a == 'flt:' + gk));
-
-    // Botão de adicionar foto: só para administradores
-    $('#ga').innerHTML = u && u.adm
-      ? `<label class="btn">+ Adicionar foto<input type="file" accept="image/*" hidden data-f="ph"></label>`
-      : '';
   },
 
   /** LOJA: oferta VIP e cartões das tags de nível. */
@@ -623,7 +653,7 @@ const A = {
     sv(); R.cal();
   },
 
-  /** Filtra a galeria por categoria ('t', 'h' ou 'p'). */
+  /** Filtra a galeria por tag ('t' = todas, 'escola', 'alunos' ou 'eventos'). */
   flt(k) {
     gk = k;
     R.gal();
