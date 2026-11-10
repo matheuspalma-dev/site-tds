@@ -42,11 +42,11 @@ const GAMES = [
     href: 'jogos/Siberia/index.html'
   },
   {
-    n: 'Memória Naves',
-    s: 'MN',
-    d: 'Vire as cartas e encontre os pares do Souza Naves.',
+    n: 'Ping Pong rivals',
+    s: 'PR',
+    d: 'Jogue Ping Pong Rivals',
     cp: 'polygon(50% 0,100% 50%,50% 100%,0 50%)',
-    href: ''
+    href: 'jogos/ping-pong-rivals/index.html'
   }
 ];
 
