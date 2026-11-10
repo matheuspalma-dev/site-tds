@@ -1,0 +1,814 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ping Pong Arcade Neon</title>
+<style>
+*{box-sizing:border-box}
+:root{color-scheme:dark}
+body{
+ margin:0;padding:12px;background:#0d0e15;color:#fff;
+ font-family:Segoe UI,Tahoma,sans-serif;
+ display:flex;flex-direction:column;align-items:center;min-height:100vh
+}
+h1{margin:5px 0 14px;letter-spacing:3px;text-shadow:0 0 12px #00d2ff}
+.panel{
+ width:100%;max-width:800px;padding:12px;margin-bottom:12px;
+ background:#151722;border:1px solid #303442;border-radius:14px
+}
+#menu{display:flex;flex-wrap:wrap;justify-content:center;gap:7px}
+button{
+ background:#252938;color:#eee;border:1px solid #41475b;
+ border-radius:9px;padding:10px 13px;font-weight:bold;cursor:pointer
+}
+button:hover{filter:brightness(1.25)}
+button.active{background:#00d2ff;color:#080b12}
+#configuracoes[hidden]{display:none}
+h2{font-size:17px;color:#00d2ff;margin:0 0 12px}
+.config-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.campo{display:flex;flex-direction:column;gap:5px;font-size:12px;color:#c6cada}
+.campo input{
+ width:100%;min-width:0;padding:9px;border-radius:7px;
+ border:1px solid #41475b;background:#0d0e15;color:#fff
+}
+#canvasContainer{width:100%;max-width:800px}
+canvas{
+ width:100%;height:auto;display:block;background:#050508;
+ border:2px solid #333;border-radius:5px;
+ box-shadow:0 0 25px #00d2ff22;touch-action:none
+}
+#texto-instrucoes,#estado{
+ margin-top:10px;text-align:center;font-size:13px;line-height:1.7;color:#aaa
+}
+#estado{color:#00d2ff;font-weight:bold;min-height:24px}
+.acoes{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.dica{color:#999;font-size:11px;line-height:1.6;margin-top:12px}
+@media(max-width:500px){
+ body{padding:8px}h1{font-size:23px}
+ .config-grid{grid-template-columns:1fr}
+ button{padding:9px 10px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<h1>🏓 PING PONG</h1>
+
+<div id="menu" class="panel">
+ <button data-mode="facil">Fácil</button>
+ <button data-mode="medio" class="active">Médio</button>
+ <button data-mode="dificil">Difícil</button>
+ <button data-mode="multiplayer">Multiplayer 👥</button>
+ <button id="btn-config">⚙️ Configurações</button>
+</div>
+
+<section id="configuracoes" class="panel" hidden>
+ <h2>⚙️ Configurações da partida</h2>
+ <div class="config-grid">
+  <label class="campo">Pontos para vencer (0 = ilimitado)
+   <input id="limitePontos" type="number" min="0" value="5">
+  </label>
+  <label class="campo">Contagem inicial (segundos)
+   <input id="tempoInicio" type="number" min="0" step="any" value="3">
+  </label>
+  <label class="campo">Máximo de poderes (0 = ilimitado)
+   <input id="maxPoderes" type="number" min="0" value="5">
+  </label>
+  <label class="campo">Poderes gerados por vez
+   <input id="quantidadePoderes" type="number" min="1" value="1">
+  </label>
+  <label class="campo">Intervalo de poderes (segundos)
+   <input id="intervaloPoderes" type="number" min="0.1" step="any" value="4">
+  </label>
+  <label class="campo">Duração dos poderes (0 = permanente)
+   <input id="duracaoPoderes" type="number" min="0" step="any" value="15">
+  </label>
+  <label class="campo">Aumento da raquete verde (%)
+   <input id="aumentoRaquete" type="number" min="0" step="any" value="60">
+  </label>
+  <label class="campo">Altura máxima da raquete (0 = ilimitada)
+   <input id="alturaMaxima" type="number" min="0" step="any" value="350">
+  </label>
+  <label class="campo">Redução da bola azul (%)
+   <input id="reducaoBola" type="number" min="0" max="100" step="any" value="50">
+  </label>
+  <label class="campo">Aumento da bola amarela (%)
+   <input id="aumentoBola" type="number" min="0" step="any" value="100">
+  </label>
+  <label class="campo">Multiplicador de fogo
+   <input id="multiplicadorFogo" type="number" min="1" step="any" value="1.5">
+  </label>
+  <label class="campo">Velocidade máxima da bola (0 = ilimitada)
+   <input id="velocidadeMaxima" type="number" min="0" step="any" value="20">
+  </label>
+  <label class="campo">Velocidade inicial da bola
+   <input id="velocidadeInicial" type="number" min="0.1" step="any" value="8.5">
+  </label>
+  <label class="campo">Velocidade das raquetes
+   <input id="velocidadeRaquete" type="number" min="0" step="any" value="8">
+  </label>
+  <label class="campo">Velocidade do computador
+   <input id="velocidadeComputador" type="number" min="0" step="any" value="6.5">
+  </label>
+ </div>
+ <div class="acoes">
+  <button id="btn-salvar">Salvar configurações</button>
+  <button id="btn-padrao">Restaurar padrão</button>
+  <button id="btn-fechar">Fechar</button>
+ </div>
+ <div class="dica">
+  Zero desativa o limite nos campos indicados. A pausa congela o jogo e os poderes.
+ </div>
+</section>
+
+<div id="canvasContainer">
+ <canvas id="gameCanvas" width="800" height="500"
+ aria-label="Campo de ping pong"></canvas>
+</div>
+<div id="texto-instrucoes"></div>
+<div id="estado" role="status" aria-live="polite">Prepare-se para jogar!</div>
+<div class="acoes">
+ <button id="btn-nova">🔄 Nova partida</button>
+ <button id="btn-pausa">⏸️ Pausar</button>
+</div>
+<div class="dica">
+ Solo: mouse/toque. Multiplayer: azul W/S, rosa ↑/↓.
+ Enter reinicia a partida encerrada. P pausa o jogo.
+</div>
+
+<script>
+"use strict";
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+const estado = document.getElementById("estado");
+const painel = document.getElementById("configuracoes");
+const instrucoes = document.getElementById("texto-instrucoes");
+
+const PADRAO = {
+ limitePontos:5, tempoInicio:3, maxPoderes:5,
+ quantidadePoderes:1, intervaloPoderes:4, duracaoPoderes:15,
+ aumentoRaquete:60, alturaMaxima:350, reducaoBola:50,
+ aumentoBola:100, multiplicadorFogo:1.5, velocidadeMaxima:20,
+ velocidadeInicial:8.5, velocidadeRaquete:8, velocidadeComputador:6.5
+};
+
+const ZERO_ILIMITADO = new Set([
+ "limitePontos","maxPoderes","alturaMaxima","velocidadeMaxima","duracaoPoderes"
+]);
+
+let config = {...PADRAO};
+
+const ALTURA_RAQUETE = 95;
+const RAIO_BOLA = 7;
+
+const jogador = {
+ x:15,y:202,largura:16,altura:ALTURA_RAQUETE,
+ pontos:0,fogoAte:0,tamanhoAte:0
+};
+
+const computador = {
+ x:769,y:202,largura:16,altura:ALTURA_RAQUETE,
+ pontos:0,fogoAte:0,tamanhoAte:0
+};
+
+const bola = {
+ x:400,y:250,raio:RAIO_BOLA,velocidade:8.5,
+ dx:8.5,dy:2,cor:"#fff",tamanhoModo:"normal"
+};
+
+const modos = {
+ facil:{velocidadeComputador:4.5,velocidadeBola:6,multiplayer:false},
+ medio:{velocidadeComputador:6.5,velocidadeBola:8.5,multiplayer:false},
+ dificil:{velocidadeComputador:9.5,velocidadeBola:12,multiplayer:false},
+ multiplayer:{velocidadeComputador:0,velocidadeBola:9,multiplayer:true}
+};
+
+let modoAtual = "medio";
+let teclas = Object.create(null);
+let poderes = [];
+let ultimoToque = "jogador";
+let estadoJogo = "countdown";
+let estadoAnterior = "countdown";
+let jogoPausado = false;
+let partidaEncerrada = false;
+let contagem = 3;
+let tempoJogo = 0;
+let ultimoFrame = 0;
+let proximoPoder = 0;
+let inicioContagem = 0;
+let duracaoContagem = 0;
+let mensagemAte = 0;
+let mensagemAtual = "";
+let ultimoVencedor = "";
+
+function lerConfiguracoes() {
+ for (const id of Object.keys(PADRAO)) {
+  const campo = document.getElementById(id);
+  let valor = Number(campo.value);
+
+  if (campo.value.trim() === "" || !Number.isFinite(valor)) {
+   valor = PADRAO[id];
+  }
+
+  valor = Math.max(0,valor);
+
+  if (id === "quantidadePoderes") valor = Math.max(1,Math.floor(valor));
+  if (id === "intervaloPoderes") valor = Math.max(0.1,valor);
+  if (id === "multiplicadorFogo") valor = Math.max(1,valor);
+  if (id === "velocidadeInicial") valor = Math.max(0.1,valor);
+  if (id === "reducaoBola") valor = Math.min(100,valor);
+
+  config[id] = valor;
+  campo.value = valor;
+ }
+}
+
+function mostrarMensagem(texto,duracao=2.5) {
+ mensagemAtual = texto;
+ mensagemAte = tempoJogo + duracao;
+ estado.textContent = texto;
+}
+
+function nomeJogador(alvo) {
+ if (alvo === jogador) return "🔵 JOGADOR AZUL";
+ return modos[modoAtual].multiplayer ? "🩷 JOGADOR ROSA" : "🩷 COMPUTADOR";
+}
+
+function limitarRaquetes() {
+ jogador.y = Math.max(0,Math.min(canvas.height-jogador.altura,jogador.y));
+ computador.y = Math.max(0,Math.min(canvas.height-computador.altura,computador.y));
+}
+
+function alturaComPoder() {
+ const altura = ALTURA_RAQUETE*(1+config.aumentoRaquete/100);
+ return config.alturaMaxima > 0
+  ? Math.min(altura,config.alturaMaxima)
+  : altura;
+}
+
+function atualizarTamanhoRaquete(alvo) {
+ const ativo = alvo.tamanhoAte === Infinity || alvo.tamanhoAte > tempoJogo;
+ alvo.altura = ativo ? alturaComPoder() : ALTURA_RAQUETE;
+}
+
+function limparPoderesJogadores() {
+ jogador.fogoAte = 0;
+ jogador.tamanhoAte = 0;
+ computador.fogoAte = 0;
+ computador.tamanhoAte = 0;
+ jogador.altura = ALTURA_RAQUETE;
+ computador.altura = ALTURA_RAQUETE;
+}
+
+function atualizarCorBola() {
+ const dono = ultimoToque === "jogador" ? jogador : computador;
+ bola.cor = dono.fogoAte > tempoJogo || dono.fogoAte === Infinity
+  ? "#ff4500" : "#ffffff";
+}
+
+function reiniciarTamanhoBola() {
+ bola.raio = RAIO_BOLA;
+ bola.tamanhoModo = "normal";
+}
+
+function limitarVelocidade(v) {
+ if (config.velocidadeMaxima <= 0) return v;
+ return Math.min(v,config.velocidadeMaxima);
+}
+
+function reiniciarBola() {
+ bola.x = canvas.width/2;
+ bola.y = canvas.height/2;
+ reiniciarTamanhoBola();
+
+ bola.velocidade = limitarVelocidade(
+  Math.max(0.1,config.velocidadeInicial)
+ );
+
+ const direcao = Math.random()<0.5 ? -1 : 1;
+ const angulo = Math.random()*0.8-0.4;
+ bola.dx = direcao*bola.velocidade*Math.cos(angulo);
+ bola.dy = bola.velocidade*Math.sin(angulo);
+ ultimoToque = direcao>0 ? "jogador" : "computador";
+ atualizarCorBola();
+}
+
+function iniciarContagem() {
+ estadoJogo = config.tempoInicio > 0 ? "countdown" : "playing";
+ contagem = config.tempoInicio;
+ inicioContagem = tempoJogo;
+ duracaoContagem = config.tempoInicio;
+
+ if (config.tempoInicio <= 0) {
+  mostrarMensagem("VALENDO! Boa partida!");
+ }
+}
+
+function iniciarPartida() {
+ lerConfiguracoes();
+
+ jogador.pontos = 0;
+ computador.pontos = 0;
+ jogador.y = canvas.height/2-ALTURA_RAQUETE/2;
+ computador.y = canvas.height/2-ALTURA_RAQUETE/2;
+
+ limparPoderesJogadores();
+ poderes = [];
+ partidaEncerrada = false;
+ jogoPausado = false;
+ ultimoVencedor = "";
+ teclas = Object.create(null);
+
+ if (!painel.hidden) painel.hidden = true;
+
+ proximoPoder = tempoJogo+config.intervaloPoderes;
+ reiniciarBola();
+ iniciarContagem();
+
+ if (estadoJogo === "countdown") {
+  mostrarMensagem("A partida começa em "+config.tempoInicio+"...");
+ }
+}
+
+function terminarPartida(vencedor) {
+ partidaEncerrada = true;
+ estadoJogo = "over";
+ ultimoVencedor = vencedor;
+ poderes = [];
+ limparPoderesJogadores();
+ mostrarMensagem(vencedor+" venceu a partida! 🏆");
+}
+
+function prepararProximoPonto() {
+ if (estadoJogo !== "playing" || partidaEncerrada) return;
+
+ poderes = [];
+ limparPoderesJogadores();
+
+ if (config.limitePontos > 0 && jogador.pontos >= config.limitePontos) {
+  terminarPartida("🔵 JOGADOR AZUL");
+  return;
+ }
+
+ if (config.limitePontos > 0 && computador.pontos >= config.limitePontos) {
+  terminarPartida(modos[modoAtual].multiplayer
+   ? "🩷 JOGADOR ROSA" : "🩷 COMPUTADOR");
+  return;
+ }
+
+ reiniciarBola();
+ proximoPoder = tempoJogo+config.intervaloPoderes;
+ iniciarContagem();
+
+ if (estadoJogo === "countdown") {
+  mostrarMensagem("Próximo ponto em "+config.tempoInicio+"...");
+ }
+}
+
+function alternarPausa() {
+ if (!painel.hidden) return;
+
+ if (!jogoPausado) {
+  estadoAnterior = estadoJogo;
+  estadoJogo = "paused";
+  jogoPausado = true;
+  teclas = Object.create(null);
+  estado.textContent = "⏸️ JOGO PAUSADO";
+ } else {
+  jogoPausado = false;
+  estadoJogo = estadoAnterior;
+  estado.textContent = estadoJogo === "over"
+   ? ultimoVencedor+" venceu a partida! 🏆"
+   : "▶️ JOGO CONTINUANDO";
+ }
+}
+
+function abrirConfiguracoes() {
+ if (painel.hidden) {
+  estadoAnterior = estadoJogo;
+  jogoPausado = true;
+  estadoJogo = "paused";
+  painel.hidden = false;
+  teclas = Object.create(null);
+  estado.textContent = "⏸️ JOGO PAUSADO";
+ } else {
+  painel.hidden = true;
+  jogoPausado = false;
+  estadoJogo = estadoAnterior;
+  estado.textContent = estadoJogo === "over"
+   ? ultimoVencedor+" venceu a partida! 🏆"
+   : "▶️ JOGO CONTINUANDO";
+ }
+}
+
+function aplicarConfiguracoes() {
+ lerConfiguracoes();
+
+ if (config.maxPoderes > 0) {
+  poderes = poderes.slice(0,Math.floor(config.maxPoderes));
+ }
+
+ proximoPoder = tempoJogo+config.intervaloPoderes;
+
+ if (bola.velocidade > config.velocidadeMaxima && config.velocidadeMaxima > 0) {
+  const fator = config.velocidadeMaxima/bola.velocidade;
+  bola.dx *= fator;
+  bola.dy *= fator;
+  bola.velocidade = config.velocidadeMaxima;
+ }
+
+ atualizarTamanhoRaquete(jogador);
+ atualizarTamanhoRaquete(computador);
+ limitarRaquetes();
+ mostrarMensagem("Configurações salvas!");
+}
+
+function restaurarConfiguracoes() {
+ config = {...PADRAO};
+
+ for (const id of Object.keys(PADRAO)) {
+  document.getElementById(id).value = config[id];
+ }
+
+ aplicarConfiguracoes();
+}
+
+function mudarModo(modo) {
+ if (!modos[modo]) return;
+ modoAtual = modo;
+
+ document.querySelectorAll("[data-mode]").forEach(botao => {
+  botao.classList.toggle("active",botao.dataset.mode===modo);
+ });
+
+ instrucoes.innerHTML = modos[modo].multiplayer
+  ? "JOGADOR AZUL: <b>W / S</b> | JOGADOR ROSA: <b>↑ / ↓</b>"
+  : "MODO SOLO: mova o mouse ou toque na tela para controlar a raquete azul.";
+
+ iniciarPartida();
+}
+
+function moverRaqueteComPonteiro(evento) {
+ if (modos[modoAtual].multiplayer || jogoPausado || partidaEncerrada) return;
+
+ const ret = canvas.getBoundingClientRect();
+ jogador.y = (evento.clientY-ret.top)*(canvas.height/ret.height)-jogador.altura/2;
+ limitarRaquetes();
+}
+
+canvas.addEventListener("pointermove",moverRaqueteComPonteiro);
+canvas.addEventListener("pointerdown",evento => {
+ if (evento.pointerType !== "mouse") moverRaqueteComPonteiro(evento);
+});
+
+window.addEventListener("keydown",evento => {
+ const tecla = evento.key.toLowerCase();
+
+ if (["arrowup","arrowdown"," "].includes(tecla)) evento.preventDefault();
+
+ if (tecla==="enter" && partidaEncerrada) {
+  iniciarPartida();
+  return;
+ }
+
+ if (tecla==="escape" && !painel.hidden) {
+  abrirConfiguracoes();
+  return;
+ }
+
+ if (tecla==="p" && painel.hidden) {
+  alternarPausa();
+  return;
+ }
+
+ teclas[tecla] = true;
+});
+
+window.addEventListener("keyup",evento => {
+ teclas[evento.key.toLowerCase()] = false;
+});
+
+window.addEventListener("blur",() => {
+ teclas = Object.create(null);
+});
+
+function gerarPoder() {
+ if (estadoJogo!=="playing" || partidaEncerrada) return;
+
+ for (let i=0;i<config.quantidadePoderes;i++) {
+  if (config.maxPoderes>0 && poderes.length>=config.maxPoderes) break;
+
+  poderes.push({
+   x:Math.random()*(canvas.width-260)+130,
+   y:Math.random()*(canvas.height-120)+60,
+   raio:16,
+   tipo:["fogo","tamanho","pequena","grande"][Math.floor(Math.random()*4)]
+  });
+ }
+}
+
+function aplicarPoder(tipo,dono) {
+ const fim = config.duracaoPoderes===0
+  ? Infinity : tempoJogo+config.duracaoPoderes;
+
+ if (tipo==="fogo") {
+  dono.fogoAte = fim;
+  atualizarCorBola();
+  mostrarMensagem(nomeJogador(dono)+" conquistou o poder de fogo! 🔥");
+  return;
+ }
+
+ if (tipo==="tamanho") {
+  dono.tamanhoAte = fim;
+  atualizarTamanhoRaquete(dono);
+  limitarRaquetes();
+  mostrarMensagem(nomeJogador(dono)+" conquistou o poder verde! 🟢");
+  return;
+ }
+
+ if ((tipo==="pequena" && bola.tamanhoModo==="grande") ||
+     (tipo==="grande" && bola.tamanhoModo==="pequena")) {
+  reiniciarTamanhoBola();
+  mostrarMensagem("✨ FUSÃO! A bola voltou ao tamanho normal!");
+  return;
+ }
+
+ bola.tamanhoModo = tipo;
+
+ if (tipo==="pequena") {
+  bola.raio = Math.max(0.5,RAIO_BOLA*(1-config.reducaoBola/100));
+  mostrarMensagem(nomeJogador(dono)+" deixou a bola menor! 🔵");
+ } else {
+  bola.raio = RAIO_BOLA*(1+config.aumentoBola/100);
+  mostrarMensagem(nomeJogador(dono)+" deixou a bola maior! 🟡");
+ }
+}
+
+function detectarColisao(b,r) {
+ return b.x+b.raio>r.x &&
+        b.x-b.raio<r.x+r.largura &&
+        b.y+b.raio>r.y &&
+        b.y-b.raio<r.y+r.altura;
+}
+
+function rebater(raquete,direcao) {
+ ultimoToque = raquete===jogador ? "jogador" : "computador";
+
+ const impacto = Math.max(-1,Math.min(1,
+  (bola.y-(raquete.y+raquete.altura/2))/(raquete.altura/2)
+ ));
+
+ const angulo = impacto*Math.PI/3;
+ const velocidadeBase = Math.max(bola.velocidade,config.velocidadeInicial);
+ bola.velocidade = limitarVelocidade(velocidadeBase+0.25);
+
+ const fogo = raquete.fogoAte===Infinity || raquete.fogoAte>tempoJogo;
+ const velocidade = limitarVelocidade(
+  bola.velocidade*(fogo ? config.multiplicadorFogo : 1)
+ );
+
+ bola.dx = direcao*velocidade*Math.cos(angulo);
+ bola.dy = velocidade*Math.sin(angulo);
+ bola.velocidade = velocidade;
+ atualizarCorBola();
+}
+
+function atualizar(dt) {
+ if (jogoPausado || partidaEncerrada || estadoJogo==="over") return;
+
+ tempoJogo += dt;
+
+ if (estadoJogo==="countdown") {
+  const passado = tempoJogo-inicioContagem;
+  contagem = Math.max(0,Math.ceil(duracaoContagem-passado));
+
+  if (passado>=duracaoContagem) {
+   estadoJogo = "playing";
+   mostrarMensagem("VALENDO! Boa partida!",1.5);
+  } else {
+   estado.textContent = "A partida começa em "+contagem+"...";
+  }
+  return;
+ }
+
+ for (const p of [jogador,computador]) atualizarTamanhoRaquete(p);
+ atualizarCorBola();
+ limitarRaquetes();
+
+ if (tempoJogo>=proximoPoder) {
+  gerarPoder();
+  proximoPoder = tempoJogo+config.intervaloPoderes;
+ }
+
+ const modo = modos[modoAtual];
+ const escala = dt*60;
+
+ if (modo.multiplayer) {
+  if (teclas["w"]) jogador.y -= config.velocidadeRaquete*escala;
+  if (teclas["s"]) jogador.y += config.velocidadeRaquete*escala;
+  if (teclas["arrowup"]) computador.y -= config.velocidadeRaquete*escala;
+  if (teclas["arrowdown"]) computador.y += config.velocidadeRaquete*escala;
+ } else {
+  const alvo = bola.y-computador.altura/2;
+  const diferenca = alvo-computador.y;
+  const passo = config.velocidadeComputador*escala;
+  computador.y += Math.max(-passo,Math.min(passo,diferenca));
+ }
+
+ limitarRaquetes();
+
+ /*
+  * Subpassos de movimento para reduzir colisões perdidas.
+  * El tamaño del paso se adapta a la velocidad de la pelota.
+  */
+ const distancia = Math.max(Math.abs(bola.dx),Math.abs(bola.dy))*escala;
+ const pasos = Math.max(1,Math.ceil(distancia/3));
+ const subDt = escala/pasos;
+
+ for (let s=0;s<pasos;s++) {
+  if (estadoJogo!=="playing") break;
+
+  const xAnterior = bola.x;
+  bola.x += bola.dx*subDt;
+  bola.y += bola.dy*subDt;
+
+  if (bola.y-bola.raio<=0) {
+   bola.y=bola.raio;
+   bola.dy=Math.abs(bola.dy);
+  }
+
+  if (bola.y+bola.raio>=canvas.height) {
+   bola.y=canvas.height-bola.raio;
+   bola.dy=-Math.abs(bola.dy);
+  }
+
+  for (let i=poderes.length-1;i>=0;i--) {
+   const p=poderes[i];
+
+   if (Math.hypot(bola.x-p.x,bola.y-p.y)<bola.raio+p.raio) {
+    aplicarPoder(p.tipo,ultimoToque==="jogador"?jogador:computador);
+    poderes.splice(i,1);
+   }
+  }
+
+  if (bola.dx<0 && xAnterior-bola.raio>=jogador.x+jogador.largura-1 &&
+      detectarColisao(bola,jogador)) {
+   bola.x=jogador.x+jogador.largura+bola.raio;
+   rebater(jogador,1);
+  } else if (bola.dx>0 &&
+      xAnterior+bola.raio<=computador.x+1 &&
+      detectarColisao(bola,computador)) {
+   bola.x=computador.x-bola.raio;
+   rebater(computador,-1);
+  }
+
+  if (bola.x+bola.raio<0) {
+   computador.pontos++;
+   prepararProximoPonto();
+  } else if (bola.x-bola.raio>canvas.width) {
+   jogador.pontos++;
+   prepararProximoPonto();
+  }
+ }
+}
+
+function desenharPoderes() {
+ const estilos={
+  fogo:{cor:"#ff4500",simbolo:"🔥"},
+  tamanho:{cor:"#00ff00",simbolo:"↕"},
+  pequena:{cor:"#008cff",simbolo:"−"},
+  grande:{cor:"#ffd700",simbolo:"+"}
+ };
+
+ for (const p of poderes) {
+  const e=estilos[p.tipo];
+  ctx.save();
+  ctx.shadowBlur=18;
+  ctx.shadowColor=e.cor;
+  ctx.fillStyle=e.cor;
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,p.raio,0,Math.PI*2);
+  ctx.fill();
+  ctx.shadowBlur=0;
+  ctx.fillStyle="#fff";
+  ctx.font="bold 19px Arial";
+  ctx.textAlign="center";
+  ctx.textBaseline="middle";
+  ctx.fillText(e.simbolo,p.x,p.y);
+  ctx.restore();
+ }
+}
+
+function desenhar() {
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="#050508";
+ ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ ctx.save();
+ ctx.strokeStyle="rgba(255,255,255,.18)";
+ ctx.lineWidth=3;
+ ctx.setLineDash([10,12]);
+ ctx.beginPath();
+ ctx.moveTo(canvas.width/2,0);
+ ctx.lineTo(canvas.width/2,canvas.height);
+ ctx.stroke();
+ ctx.restore();
+
+ for (const [p,cor] of [[jogador,"#00d2ff"],[computador,"#ff007f"]]) {
+  ctx.save();
+  ctx.shadowBlur=15;
+  ctx.shadowColor=(p.fogoAte===Infinity || p.fogoAte>tempoJogo)
+   ? "#ff4500" : cor;
+  ctx.fillStyle=cor;
+  ctx.fillRect(p.x,p.y,p.largura,p.altura);
+  ctx.restore();
+ }
+
+ desenharPoderes();
+
+ ctx.save();
+ ctx.shadowBlur=20;
+ ctx.shadowColor=bola.cor;
+ ctx.fillStyle=bola.cor;
+ ctx.beginPath();
+ ctx.arc(bola.x,bola.y,bola.raio,0,Math.PI*2);
+ ctx.fill();
+ ctx.restore();
+
+ ctx.save();
+ ctx.font="bold 46px Courier New";
+ ctx.textAlign="center";
+ ctx.fillStyle="#00d2ff";
+ ctx.fillText(jogador.pontos,canvas.width/4,65);
+ ctx.fillStyle="#ff007f";
+ ctx.fillText(computador.pontos,canvas.width*3/4,65);
+ ctx.font="12px Arial";
+ ctx.fillStyle="#888";
+ ctx.fillText(config.limitePontos===0?"META: ∞":"META: "+config.limitePontos,
+  canvas.width/2,25);
+ ctx.restore();
+
+ if (estadoJogo==="countdown") {
+  ctx.fillStyle="rgba(0,0,0,.62)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#00d2ff";
+  ctx.textAlign="center";
+  ctx.font="bold 42px Arial";
+  ctx.fillText(Math.max(1,contagem),canvas.width/2,canvas.height/2);
+ }
+
+ if (jogoPausado) {
+  ctx.fillStyle="rgba(0,0,0,.76)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="#00d2ff";
+  ctx.textAlign="center";
+  ctx.font="bold 36px Arial";
+  ctx.fillText("JOGO PAUSADO",canvas.width/2,canvas.height/2);
+ }
+
+ if (partidaEncerrada) {
+  ctx.fillStyle="rgba(0,0,0,.78)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.textAlign="center";
+  ctx.fillStyle="#ffd700";
+  ctx.font="bold 34px Arial";
+  ctx.fillText("FIM DE JOGO!",canvas.width/2,canvas.height/2-25);
+  ctx.fillStyle="#fff";
+  ctx.font="18px Arial";
+  ctx.fillText(ultimoVencedor+" venceu!",canvas.width/2,canvas.height/2+12);
+  ctx.font="15px Arial";
+  ctx.fillText("Clique em Nova partida ou pressione Enter",
+   canvas.width/2,canvas.height/2+45);
+ }
+}
+
+function cicloDoJogo(agora) {
+ if (!ultimoFrame) ultimoFrame=agora;
+ const dt=Math.min((agora-ultimoFrame)/1000,0.04);
+ ultimoFrame=agora;
+
+ atualizar(dt);
+ desenhar();
+ requestAnimationFrame(cicloDoJogo);
+}
+
+document.querySelectorAll("[data-mode]").forEach(botao=>{
+ botao.addEventListener("click",()=>mudarModo(botao.dataset.mode));
+});
+
+document.getElementById("btn-config").addEventListener("click",abrirConfiguracoes);
+document.getElementById("btn-fechar").addEventListener("click",abrirConfiguracoes);
+document.getElementById("btn-salvar").addEventListener("click",aplicarConfiguracoes);
+document.getElementById("btn-padrao").addEventListener("click",restaurarConfiguracoes);
+document.getElementById("btn-nova").addEventListener("click",iniciarPartida);
+document.getElementById("btn-pausa").addEventListener("click",alternarPausa);
+
+lerConfiguracoes();
+mudarModo("medio");
+requestAnimationFrame(cicloDoJogo);
+</script>
+</body>
+</html>
