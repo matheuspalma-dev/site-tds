@@ -50,6 +50,7 @@ export class Jogo extends Phaser.Scene {
         const tutorial = parametros.get("tutorial");
 
         if(tutorial === "true"){
+            document.body.classList.add("em-gameplay");
             this.scene.start("Tutorial");
             this.scene.stop("Jogo");
             window.history.replaceState({}, document.title, window.location.pathname);
@@ -97,6 +98,7 @@ export class Jogo extends Phaser.Scene {
         
 
         pagina.style.display = "block";
+        document.body.classList.remove("em-gameplay");
 
         //botoes para os mapas ranking e perfil
 
@@ -227,6 +229,7 @@ export class Jogo extends Phaser.Scene {
             escolher_personagem.style.display = "none";
             document.body.classList.remove("blur");
             pagina.style.display = "none";
+            document.body.classList.add("em-gameplay");
 
             if(this.criando_sala_online){
                 salas_ligadas.style.display = "none";
