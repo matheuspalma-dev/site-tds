@@ -1,44 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-
-    <!-- Custom PreHead code is injected here -->
-    
+<html lang="pt-BR">
 
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name ="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta charset="utf-8"/>
 
-        <!-- Builtin injector for disabling cache -->
+        <!-- Desativa o cache -->
         <meta http-equiv="pragma" content="no-cache"/>
 
-        <!-- Set the title bar of the page -->
         <title>Sobrevivendo_Na_Siberia</title>
 
-        <!-- Custom PreStyle code is injected here -->
-        
-
-        <!-- Set the background colour of the document -->
         <style>
-            body {
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                overflow: hidden;
                 background: #000;
                 color: #cccccc;
-                margin: 0px;
-                padding: 0px;
-                border: 0px;
+            }
+
+            /* Container do jogo: ocupa a janela inteira e centraliza o canvas */
+            div.gm4html5_div_class {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
             }
 
             canvas {
+                display: block;
                 image-rendering: optimizeSpeed;
                 -webkit-interpolation-mode: nearest-neighbor;
                 -ms-touch-action: none;
                 touch-action: none;
-                margin: 0px;
-                padding: 0px;
-                border: 0px;
+                margin: 0;
+                padding: 0;
+                border: 0;
             }
+
             :-webkit-full-screen #canvas {
                 width: 100%;
                 height: 100%;
@@ -47,19 +57,14 @@
                 width: 100%;
                 height: 100%;
             }
-            
-            /* Custom Runner Styles */
-            div.gm4html5_div_class {
-                margin: 0px;
-                padding: 0px;
-                border: 0px;
-            }
+
+            /* Estilos do login do runner */
             div.gm4html5_login {
                 padding: 20px;
                 position: absolute;
                 border: solid 2px #000000;
                 background-color: #404040;
-                color:#00ff00;
+                color: #00ff00;
                 border-radius: 15px;
                 box-shadow: #101010 20px 20px 40px;
             }
@@ -72,8 +77,7 @@
             div.gm4html5_login_header {
                 text-align: center;
             }
-            /* END - Custom Runner Styles */
-            
+
             .back-to-games {
                 position: fixed;
                 top: 14px;
@@ -96,59 +100,73 @@
             @media (max-width: 520px) {
                 .back-to-games { top: 10px; left: 10px; padding: 10px 14px; font-size: 14px; }
             }
+
+            #texto-cheio {
+                position: fixed;
+                bottom: 14px;
+                left: 18px;
+                z-index: 10000;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 12px 20px;
+                border: 0;
+                border-radius: 9px;
+                background: #f2bb16;
+                color: #171717;
+                font: 700 16px/1.2 Arial, sans-serif;
+                text-decoration: none;
+                box-shadow: 0 3px 10px #0006;
+            }
         </style>
-
-        <!-- Custom PostStyle code is injected here -->
-        
-
-        <!-- Builtin injector for injecting flurry analytics code -->
-        
     </head>
-
-    <!-- Custom PostHead code is injected here -->
-    
-
-    <!-- Custom PreBody code is injected here -->
-    
 
     <body>
         <a class="back-to-games" href="../../jogos.html" aria-label="Voltar para a lista de jogos">&#8592; Voltar ao site</a>
-        <!-- Custom BodyStart code is injected here -->
-        
+        <a id="texto-cheio">Pressione F10 para jogar em tela cheia</a>
 
         <div class="gm4html5_div_class" id="gm4html5_div_id">
-            
-            <!-- Builtin injector for splash screen -->
-            
-
-            <!-- Custom PreCanvas code is injected here -->
-            
-
-            <!-- Create the canvas element the game draws to -->
-            <canvas id="canvas" width="1366" height="768" >
-                
+            <canvas id="canvas" width="1366" height="768">
                 <p>Your browser doesn't support HTML5 canvas.</p>
             </canvas>
-            
-            <!-- Custom PostCanvas code is injected here -->
-            
         </div>
 
-        <!-- Run the game code -->
+        <!-- Código do jogo -->
         <script type="text/javascript" src="html5game/sobrevivendo_na_siberia.js?cachebust=1574752550"></script>
 
-        <!-- Builtin injector for injecting runner path -->
-        
+        <script>
+            // Ajusta o canvas para caber na janela mantendo a proporção 1366x768,
+            // sem sobrar borda preta em um dos lados (só faixas simétricas, se houver).
+            // true  = mantém a proporção (pode sobrar faixa preta simétrica)
+            // false = estica o jogo para preencher a tela inteira (pode distorcer)
+            var MANTER_PROPORCAO = false;
 
-        <script>window.onload = GameMaker_Init;</script>
+            function fitCanvas() {
+                var canvas = document.getElementById("canvas");
+                if (!canvas) return;
 
-        <!-- Builtin injector for injecting google analytics code -->
-        
+                var ratio = 1366 / 768;
+                var w = window.innerWidth;
+                var h = window.innerHeight;
 
-        <!-- Custom BodyEnd code is injected here -->
-        
+                if (MANTER_PROPORCAO) {
+                    if (w / h > ratio) {
+                        w = Math.floor(h * ratio);
+                    } else {
+                        h = Math.floor(w / ratio);
+                    }
+                }
+
+                canvas.style.setProperty("width", w + "px", "important");
+                canvas.style.setProperty("height", h + "px", "important");
+            }
+
+            window.onload = function () {
+                GameMaker_Init();
+                fitCanvas();
+            };
+            window.addEventListener("resize", fitCanvas);
+            window.addEventListener("orientationchange", fitCanvas);
+        </script>
     </body>
-
-    <!-- Custom PostBody code is injected here -->
-    
 </html>
