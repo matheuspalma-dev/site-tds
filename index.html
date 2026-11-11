@@ -1,42 +1,98 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Colégio Souza Naves — Rolândia</title>
-<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>Colégio Souza Naves — Rolândia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="bar"><span>Rolândia, Paraná</span><span id="ac"></span></div>
-<header>
-<a class="lg" href="#home" data-v="home" aria-label="Souza Naves — voltar para Início"><svg width="36" height="42" viewBox="0 0 38 44" aria-hidden="true" draggable="false"><path d="M2 2h34v22c0 10-9 16-17 19C11 40 2 34 2 24z" fill="#fff"/><path d="M8 8h22v16c0 6-5 10-11 13C13 34 8 30 8 24z" fill="#0b2a5b"/><text x="19" y="27" text-anchor="middle" font-family="Alfa Slab One,serif" font-size="13" fill="#fff">SN</text></svg><span>Souza Naves</span></a>
-<nav aria-label="Navegação principal"><button data-v="home" class="on" aria-current="page">Início</button><button data-v="forum">Fórum</button><button data-v="games">Jogos</button><button data-v="cal">Cantina e agenda</button><button data-v="gal">Galeria</button><button data-v="shop" class="shop">Loja</button></nav>
-</header>
+    <div class="bar"><span>Rolândia, Paraná</span><span id="ac"></span></div>
+    <header>
+        <a class="lg" href="#home" data-v="home" aria-label="Souza Naves — voltar para Início"><svg width="36" height="42" viewBox="0 0 38 44" aria-hidden="true" draggable="false"><path d="M2 2h34v22c0 10-9 16-17 19C11 40 2 34 2 24z" fill="#fff"/><path d="M8 8h22v16c0 6-5 10-11 13C13 34 8 30 8 24z" fill="#0b2a5b"/><text x="19" y="27" text-anchor="middle" font-family="Alfa Slab One,serif" font-size="13" fill="#fff">SN</text></svg><span>Souza Naves</span></a>
+        <nav aria-label="Navegação principal"><button data-v="home" class="on" aria-current="page">Início</button><button data-v="forum">Fórum</button><button data-v="games">Jogos</button><button data-v="cal">Cantina e agenda</button><button data-v="gal">Galeria</button><button data-v="shop"
+                class="shop">Loja</button></nav>
+    </header>
 
-<main><section class="v on" id="home" aria-label="Início">
-<div class="hero"><div><p class="dt cap" id="hd"></p><h1>Hoje no Souza Naves</h1><p>Cardápio da cantina, eventos do mês e a turma toda reunida num lugar só.</p><button class="btn w" data-v="cal">Ver o mês inteiro</button></div><div class="cb" id="hb"></div></div>
-<div class="doors">
-<button class="dr s3" data-v="forum"><strong class="h3">Fórum</strong><span>Converse, mande GIFs e acompanhe os recados da direção.</span></button>
-<button class="dr s3" data-v="games"><strong class="h3">Jogos</strong><span>Criados pelos próprios alunos da escola.</span></button>
-<button class="dr" data-v="cal"><strong class="h3">Cantina e agenda</strong><span>O prato do dia, interclasses e trotes.</span></button>
-<button class="dr" data-v="gal"><strong class="h3">Galeria</strong><span>Fotos históricas e alunos premiados.</span></button>
-<button class="dr shop" data-v="shop"><strong class="h3">Loja</strong><span>VIP e tags de cor para o seu perfil.</span></button>
-</div>
-</section>
+    <main>
+        <section class="v on" id="home" aria-label="Início">
+            <div class="hero">
+                <div>
+                    <p class="dt cap" id="hd"></p>
+                    <h1>Souza Naves</h1>
+                    <p>Cardápio da cantina, eventos do mês e a turma toda reunida num lugar só.</p><button class="btn w" data-v="cal">Ver o mês inteiro</button></div>
+                <div class="cb" id="hb"></div>
+            </div>
+            <div class="doors">
+                <button class="dr s3" data-v="forum"><strong class="h3">Fórum</strong><span>Socialize, mande GIFs e tire duvidas</span></button>
+                <button class="dr s3" data-v="games"><strong class="h3">Jogos</strong><span>Criados pelos alunos do TDS.</span></button>
+                <button class="dr" data-v="cal"><strong class="h3">Cantina e agenda</strong><span>Refeição do dia, data de interclasses e trotes.</span></button>
+                <button class="dr" data-v="gal"><strong class="h3">Galeria</strong><span>Galeria de fotos do colégio</span></button>
+                <button class="dr shop" data-v="shop"><strong class="h3">Loja</strong><span>Plano de pagamento para assinatura VIP e tags customizadas</span></button>
+            </div>
+        </section>
 
-<section class="v" id="forum"><div class="ph"><div><h2>Fórum</h2><p>Recados da direção ficam fixos no topo. Quem é VIP ganha moldura dourada. Ofensas e discurso de ódio são bloqueados na hora.</p></div></div><div class="fo" id="fb"></div></section>
-<section class="v" id="games"><div class="ph"><div><h2>Jogos da turma</h2><p>Feitos por alunos do Souza Naves. Toque no logo para jogar.</p></div></div><div class="gs" id="gg"></div></section>
-<section class="v" id="cal"><div class="ph"><div><h2>Cantina e agenda</h2><p>Cardápio do dia, refeições especiais, interclasses, trotes e outros eventos. A direção atualiza tudo por aqui.</p></div></div><div id="cl"></div></section>
-<section class="v" id="gal"><div class="ph"><div><h2>Galeria</h2><p>Fotos da escola, dos estudantes e dos eventos do Souza Naves.</p></div><div class="tb"><button data-a="flt:t">Todas</button><button data-a="flt:escola">Escola</button><button data-a="flt:alunos">Estudantes</button><button data-a="flt:eventos">Eventos</button><span id="ga"></span></div></div><div class="mu" id="gb"></div></section>
-<section class="v" id="shop"><div class="ph"><div><h2>Loja do Naves</h2><p>Destaque seu nome no fórum com o VIP ou escolha uma tag de cor.</p></div></div><div id="sb"></div></section>
+        <section class="v" id="forum">
+            <div class="ph">
+                <div>
+                    <h2>Fórum</h2>
+                    <p>Ofensas e discurso de ódio são bloqueados na hora.</p>
+                </div>
+            </div>
+            <div class="fo" id="fb"></div>
+        </section>
+        <section class="v" id="games">
+            <div class="ph">
+                <div>
+                    <h2>Jogos da turma</h2>
+                    <p>Feitos por alunos do TDS.</p>
+                </div>
+            </div>
+            <div class="gs" id="gg"></div>
+        </section>
+        <section class="v" id="cal">
+            <div class="ph">
+                <div>
+                    <h2>Cantina e agenda</h2>
+                    <p>Refeição do dia, lanches especiais, data de interclasses, trotes e outros eventos.</p>
+                </div>
+            </div>
+            <div id="cl"></div>
+        </section>
+        <section class="v" id="gal">
+            <div class="ph">
+                <div>
+                    <h2>Galeria</h2>
+                    <p>Fotos da escola, dos estudantes e dos eventos do Souza Naves.</p>
+                </div>
+                <div class="tb"><button data-a="flt:t">Todas</button><button data-a="flt:escola">Escola</button><button data-a="flt:alunos">Estudantes</button><button data-a="flt:eventos">Eventos</button><span id="ga"></span></div>
+            </div>
+            <div class="mu" id="gb"></div>
+        </section>
+        <section class="v" id="shop">
+            <div class="ph">
+                <div>
+                    <h2>Loja do Naves</h2>
+                    <p>Plano de assinatura VIP e tags disponíveis.</p>
+                </div>
+            </div>
+            <div id="sb"></div>
+        </section>
 
-</main>
-<footer>Colégio Souza Naves, Rolândia, Paraná · Protótipo demonstrativo</footer>
-<div class="md" id="md"><div class="bx"><button class="x" aria-label="Fechar">×</button><div id="mb"></div></div></div>
-<div class="ts" id="ts" role="status"></div>
-<div id="wp"><svg width="90" height="104" viewBox="0 0 38 44" aria-hidden="true"><path d="M2 2h34v22c0 10-9 16-17 19C11 40 2 34 2 24z" fill="#fff"/><path d="M8 8h22v16c0 6-5 10-11 13C13 34 8 30 8 24z" fill="#0b2a5b"/></svg></div>
+    </main>
+    <footer>Colégio Souza Naves, Rolândia, Paraná · Protótipo demonstrativo</footer>
+    <div class="md" id="md">
+        <div class="bx"><button class="x" aria-label="Fechar">×</button>
+            <div id="mb"></div>
+        </div>
+    </div>
+    <div class="ts" id="ts" role="status"></div>
+    <div id="wp"><svg width="90" height="104" viewBox="0 0 38 44" aria-hidden="true"><path d="M2 2h34v22c0 10-9 16-17 19C11 40 2 34 2 24z" fill="#fff"/><path d="M8 8h22v16c0 6-5 10-11 13C13 34 8 30 8 24z" fill="#0b2a5b"/></svg></div>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
