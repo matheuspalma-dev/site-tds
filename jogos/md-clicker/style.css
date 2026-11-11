@@ -26,28 +26,15 @@ body {
     user-select: none;
 }
 
-body::before {
-    content: "";
-    opacity: 0;
-    position: fixed;
-    justify-content: center;
-    align-items: center;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(5px);
-}
-
-body.configAberto::before {
-    opacity: 1;
-    z-index: 90;
-}
-
 /* ---- Botão para voltar ao site ---- */
 .voltar {
+    /* Fica no topo, centralizado: longe da pontuação (MD Coins), que fica no canto esquerdo */
     position: fixed;
-    top: 2vh;
-    left: 3vw;
+    top: 1.5vh;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: fit-content;
     z-index: 200;
     display: inline-flex;
     align-items: center;
@@ -81,44 +68,6 @@ body.configAberto::before {
     display: flex;
     margin-left: 18vw;
     height: 100vh;
-}
-
-.Config,
-.configE {
-    background-color: rgb(0, 0, 0);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    left: 0;
-    width: 1vw;
-    height: 100vh;
-    border-radius: 5vh;
-    z-index: 99;
-    cursor: pointer;
-}
-
-.configE {
-    display: none;
-    border-radius: 1vh;
-}
-
-@keyframes expandir {
-    from {
-        width: 1vw;
-    }
-
-    to {
-        width: 15vw;
-    }
-}
-
-.Config:hover .configE,
-.Config.configOpen .configE {
-    display: flex;
-    animation: expandir 0.5s;
-    width: 15vw;
 }
 
 h1 {
@@ -391,11 +340,20 @@ h1 {
 
 /* ---- Tablets / telas médias (até 1100px) ---- */
 @media (max-width: 1100px) {
+    /* Em telas pequenas o botão fica no topo da página (rola junto)
+       e a área do jogo começa abaixo dele, então nunca cobre a pontuação */
     .voltar {
-        left: auto;
-        right: 1.5vh;
-        top: 1vh;
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        right: auto;
+        margin: 0;
         padding: 1vh 3vw;
+    }
+
+    /* o aviso do Canhão de Névoa desce um pouco para não ficar atrás do botão de voltar */
+    .canhaoDnevoa {
+        top: 60px;
     }
 
     .GameDiv {
@@ -405,7 +363,7 @@ h1 {
         align-items: flex-start;
         height: auto;
         min-height: 100vh;
-        padding: 2vh 1vw;
+        padding: 64px 1vw 2vh;
         gap: 2vh;
     }
 
@@ -474,23 +432,7 @@ h1 {
         margin-top: 1vh;
     }
 
-    .Config,
-    .configE {
-        width: 7vw;
-        min-width: 40px;
-        height: 7vh;
-        min-height: 40px;
-        border-radius: 1vh;
-    }
 
-    .Config:hover .configE,
-    .Config.configOpen .configE {
-        width: 60vw;
-        max-width: 260px;
-        height: auto;
-        min-height: 40px;
-        padding: 1.5vh 0;
-    }
 }
 
 /* ---- Celulares (até 600px) ---- */

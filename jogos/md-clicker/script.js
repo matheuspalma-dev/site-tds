@@ -6,7 +6,6 @@ let priceClickUPG = document.querySelector(".priceClickUPG");
 let priceFoguetesUPG = document.querySelector(".priceFoguetesUPG");
 let priceFumacasUPG = document.querySelector(".priceFumacasUPG");
 let priceOruamUPG = document.querySelector(".priceOruamUPG");
-let Config = document.querySelector(".Config");
 let SCV = document.querySelector(".SCV");
 let Foguetes = document.querySelector(".Foguetes");
 let Fumacas = document.querySelector(".Fumacas");
@@ -149,6 +148,3 @@ Oruam.addEventListener("click", () => {
     atualizarUI();
   }
 });
-
-Config.addEventListener("mouseenter", () => document.body.classList.add("configAberto"));
-Config.addEventListener("mouseleave", () => document.body.classList.remove("configAberto"));
