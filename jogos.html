@@ -2,63 +2,64 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>Jogos — Colégio Souza Naves</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>Jogos — Colégio Souza Naves</title>
 
-  <!-- Fontes do Google: Alfa Slab One (títulos) e Atkinson Hyperlegible (texto) -->
-  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Fontes do Google: Alfa Slab One (títulos) e Atkinson Hyperlegible (texto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Estilos compartilhados com o resto do site -->
-  <link rel="stylesheet" href="style.css">
+    <!-- Estilos compartilhados com o resto do site -->
+    <link rel="stylesheet" href="style.css">
 
-  <!-- Ajustes só desta página (precisa vir DEPOIS do style.css para sobrescrevê-lo) -->
-  <link rel="stylesheet" href="jogos.css">
+    <!-- Ajustes só desta página (precisa vir DEPOIS do style.css para sobrescrevê-lo) -->
+    <link rel="stylesheet" href="jogos.css">
 </head>
 
 <!-- A classe "games-page" ativa os estilos específicos de jogos.css -->
+
 <body class="games-page">
 
-  <!-- Barra superior -->
-  <div class="bar"><span>Rolândia · Paraná</span></div>
+    <!-- Barra superior -->
+    <div class="bar"><span>Rolândia · Paraná</span></div>
 
-  <!-- Cabeçalho: logo (volta ao Início) e navegação -->
-  <header>
-    <a class="lg" href="index.html" aria-label="Souza Naves — voltar para Início">
-      <!-- Brasão em SVG com as iniciais "SN" -->
-      <svg width="36" height="42" viewBox="0 0 38 44" aria-hidden="true" draggable="false">
+    <!-- Cabeçalho: logo (volta ao Início) e navegação -->
+    <header>
+        <a class="lg" href="index.html" aria-label="Souza Naves — voltar para Início">
+            <!-- Brasão em SVG com as iniciais "SN" -->
+            <svg width="36" height="42" viewBox="0 0 38 44" aria-hidden="true" draggable="false">
         <path d="M2 2h34v22c0 10-9 16-17 19C11 40 2 34 2 24z" fill="#fff"/>
         <path d="M8 8h22v16c0 6-5 10-11 13C13 34 8 30 8 24z" fill="#0b2a5b"/>
         <text x="19" y="27" text-anchor="middle" font-family="Alfa Slab One,serif" font-size="13" fill="#fff">SN</text>
       </svg>
-      <span>Souza Naves</span>
-    </a>
+            <span>Souza Naves</span>
+        </a>
 
-    <nav aria-label="Navegação principal">
-      <a href="index.html" aria-label="Ir para Início">Início</a>
-    </nav>
-  </header>
+        <nav aria-label="Navegação principal">
+            <a href="index.html" aria-label="Ir para Início">Início</a>
+        </nav>
+    </header>
 
-  <!-- Conteúdo principal -->
-  <main>
-    <!-- Título e descrição da página -->
-    <div class="ph">
-      <h2>Jogos da turma</h2>
-      <p>Feitos por alunos do Souza Naves. Toque no logo para jogar.</p>
-    </div>
+    <!-- Conteúdo principal -->
+    <main>
+        <!-- Título e descrição da página -->
+        <div class="ph">
+            <h2>Jogos da turma</h2>
+            <p>Feitos por alunos do TDS.</p>
+        </div>
 
-    <!-- Grade de jogos: os cartões são criados pelo jogos.js -->
-    <div class="gs" id="gg"></div>
-  </main>
+        <!-- Grade de jogos: os cartões são criados pelo jogos.js -->
+        <div class="gs" id="gg"></div>
+    </main>
 
-  <!-- Rodapé -->
-  <footer>Colégio Souza Naves · Rolândia, Paraná · Protótipo do site da escola</footer>
+    <!-- Rodapé -->
+    <footer>Colégio Souza Naves · Rolândia, Paraná · Protótipo do site da escola</footer>
 
-  <!-- Mensagem temporária (toast) usada pelo jogos.js -->
-  <div class="ts" id="ts" role="status"></div>
+    <!-- Mensagem temporária (toast) usada pelo jogos.js -->
+    <div class="ts" id="ts" role="status"></div>
 
-  <!-- Lógica da página (no fim do body para que os elementos acima já existam) -->
-  <script src="jogos.js"></script>
+    <!-- Lógica da página (no fim do body para que os elementos acima já existam) -->
+    <script src="jogos.js"></script>
 </body>
 
 </html>
