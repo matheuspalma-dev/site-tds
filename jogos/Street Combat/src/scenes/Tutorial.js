@@ -14,6 +14,7 @@ export class Tutorial extends Phaser.Scene {
         const pagina = document.getElementById("pagina_inteira");
 
         pagina.style.display = "none";
+        document.body.classList.add("em-gameplay");
     }
 
     preload() {

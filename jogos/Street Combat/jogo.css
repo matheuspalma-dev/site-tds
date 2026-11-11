@@ -64,6 +64,38 @@ body{
     position:relative;
 }
 
+#voltar_jogos {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 1000;
+    padding: 10px 20px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(180deg, #1769aa 0%, #0b3d70 100%);
+    border: 2px solid #fff;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.55);
+    transition: transform 0.15s, filter 0.15s;
+}
+
+#voltar_jogos:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.15);
+}
+
+#voltar_jogos:active {
+    transform: translateY(1px);
+}
+
+body.em-gameplay #voltar_jogos {
+    visibility: hidden;
+    pointer-events: none;
+}
+
 body::before{
     content:"";
     position:fixed;
