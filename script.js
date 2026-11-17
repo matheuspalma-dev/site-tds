@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SOUZA NAVES — script principal (versão completa, organizada e comentada)
+   TDS — script principal (versão completa, organizada e comentada)
    Estrutura:
      1. Utilitários básicos
      2. Dados fixos
@@ -100,7 +100,7 @@ const GM = [
   ['Quiz do Saber', 'QS'],
   ['Corrida Numérica', '123'],
   ['Caça-Palavras', 'CP'],
-  ['Memória Naves', 'MN'],
+  ['Memória TDS', 'MN'],
   ['Cobrinha Escolar', 'S'],
   ['Forca Escolar', 'F']
 ];
@@ -192,7 +192,7 @@ function seed() {
   s.p = [
     {
       n: 'Direção', adm: 1, tags: [],
-      t: 'Bem-vindos ao fórum do Souza Naves! Aqui vale o respeito: ofensas e discurso de ódio são bloqueados automaticamente.',
+      t: 'Bem-vindos ao fórum do TDS! Aqui vale o respeito: ofensas e discurso de ódio são bloqueados automaticamente.',
       d: Date.now() - 864e5, l: 12
     },
     {
