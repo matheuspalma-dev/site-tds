@@ -1,0 +1,6 @@
+{
+  "name": "O CÉU É O LIMITE",
+  "description": "Jogo arcade de sobrevivência vertical onde o jogador salta entre plataformas de nuvens fugindo da lava em ascensão.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

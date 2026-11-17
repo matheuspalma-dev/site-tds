@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "users": {
+      "title": "UserProfile",
+      "description": "User profile with display name and climb stats",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID or unique player ID" },
+        "displayName": { "type": "string", "description": "Player in-game display name" },
+        "email": { "type": "string", "description": "Player email" },
+        "highScore": { "type": "number", "description": "Highest score achieved" },
+        "maxHeight": { "type": "number", "description": "Maximum altitude reached in meters" },
+        "totalGames": { "type": "number", "description": "Total jump games played" },
+        "createdAt": { "type": "number", "description": "Account creation timestamp" }
+      },
+      "required": ["uid", "displayName", "email", "createdAt"]
+    },
+    "leaderboard": {
+      "title": "ScoreEntry",
+      "description": "Global leaderboard scores recorded by players in O Céu é o Limite",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Optional UID of the authenticated player" },
+        "playerName": { "type": "string", "description": "Display name of the player" },
+        "characterId": { "type": "string", "description": "ID of character used (leo, flash, etc)" },
+        "characterName": { "type": "string", "description": "Display name of character" },
+        "score": { "type": "number", "description": "Score achieved" },
+        "height": { "type": "number", "description": "Altitude reached in meters" },
+        "level": { "type": "number", "description": "Level reached" },
+        "timestamp": { "type": "number", "description": "Unix timestamp in ms" }
+      },
+      "required": ["playerName", "characterId", "score", "height", "level", "timestamp"]
+    },
+    "globalStats": {
+      "title": "GlobalStats",
+      "description": "Aggregate statistics of all climb attempts",
+      "type": "object",
+      "properties": {
+        "highestScore": { "type": "number" },
+        "maxHeight": { "type": "number" },
+        "totalGames": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      }
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "users",
+      "description": "User profiles collection"
+    },
+    "leaderboard": {
+      "schema": "leaderboard",
+      "description": "Collection of top global jump records"
+    },
+    "globalStats": {
+      "schema": "globalStats",
+      "description": "Global climb stats"
+    }
+  }
+}

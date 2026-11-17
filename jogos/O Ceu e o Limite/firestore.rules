@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // User accounts and profiles
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == userId || true;
+    }
+
+    // Leaderboard scores
+    match /leaderboard/{scoreId} {
+      allow read: if true;
+      allow create: if request.resource.data.score is number 
+                    && request.resource.data.score >= 0
+                    && request.resource.data.height is number
+                    && request.resource.data.playerName is string
+                    && request.resource.data.playerName.size() <= 40;
+      allow update, delete: if true;
+    }
+
+    // Global Statistics
+    match /globalStats/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}
+
