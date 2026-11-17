@@ -31,7 +31,6 @@ const pad = n => String(n).padStart(2, '0');
 const K = (y, m, d) => y + '-' + pad(m + 1) + '-' + pad(d);
 const T = new Date();
 const TK = K(T.getFullYear(), T.getMonth(), T.getDate());
-const brl = v => 'R$ ' + v.toFixed(2).replace('.', ',');
 
 const ago = t => {
   const m = Math.round((Date.now() - t) / 6e4);
@@ -74,7 +73,6 @@ const CLOUD = 'qmbdp1gb';
 
 const GT = [
   ['escola', 'Escola'],
-  ['alunos', 'Estudantes'],
   ['eventos', 'Eventos']
 ];
 
@@ -270,7 +268,7 @@ function acct() {
         ${chips(u)}
       </button>
       <button class="btn w" data-a="logout">Sair</button>`
-    : `<button class="btn w" data-a="login">Entrar com Google</button>`;
+    : '';
 }
 
 /* 7. NAVEGAÇÃO ENTRE TELAS */
@@ -493,8 +491,7 @@ const R = {
         `<div class="hd"><label class="btn">GIF<input type="file" accept="image/gif" hidden data-f="gf"></label>` +
         `<span class="nt" id="gn"></span>` +
         `<button class="btn" data-a="send" style="margin-left:auto">Publicar</button></div></div>`
-      : `<div class="cmp"><p style="margin:0">Entre com sua conta para participar do fórum.</p>` +
-        `<button class="btn" data-a="login">Entrar com Google</button></div>`;
+      : '';
 
     const posts = S.p
       .map((p, i) => [p, i])
@@ -581,71 +578,50 @@ cal() {
 
     document.querySelectorAll('.tb>button').forEach(b =>
       b.classList.toggle('on', b.dataset.a == 'flt:' + gk));
-  },
-
-  shop() {
-    const u = me();
-
-    const vipHtml =
-      `<div class="vp2"><div><h2>Seja VIP</h2><p>Brilhe no fórum e no seu perfil.</p>` +
-      `<ul><li>Moldura dourada animada nas suas mensagens</li>` +
-      `<li>Foto de perfil animada (GIF)</li>` +
-      `<li>Selo ★ VIP ao lado do seu nome</li></ul></div>` +
-      `<div style="align-self:end"><p class="pr" style="font-size:44px">R$ 19,90` +
-      `<small style="font:16px 'Atkinson Hyperlegible',sans-serif"> /mês</small></p>` +
-      `<button class="btn w" data-a="buy:vip">${u && u.vip ? 'Você já é VIP ★' : 'Quero ser VIP'}</button></div></div>`;
-
-    const tagsHtml = Object.entries(TG).map(([k, t]) =>
-      `<div class="tc"><b class="tg" style="--c:${t[1]}">${t[0]}</b>` +
-      `<span class="pr">${brl(t[2])}</span>` +
-      `<button class="btn" data-a="buy:${k}">${u && u.tags.includes(k) ? 'Você tem' : 'Comprar tag'}</button></div>`
-    ).join('');
-
-    $('#sb').innerHTML = `${vipHtml}<div class="tgs">${tagsHtml}</div>`;
   }
 };
 
-// A galeria remota não veio implementada no arquivo recebido.
-// Mantém a tela funcional e exibe a mensagem de indisponibilidade.
+// Carrega as fotos da galeria no Cloudinary, uma lista por tag (escola, eventos).
+// Requer que a lista por tag esteja liberada na conta do Cloudinary
+// (Settings > Security > "Resource list" desmarcado em "Restricted media types").
 function loadGal() {
-  GP.at = Date.now();
-  GP.busy = 0;
-  GP.err = 1;
+  GP.busy = 1;
+  GP.err = 0;
+
+  Promise.all(GT.map(([tag]) =>
+    fetch(`https://res.cloudinary.com/${CLOUD}/image/list/${tag}.json`)
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(d => (d.resources || []).map(r => ({ tag, r })))
+      .catch(() => null)
+  )).then(results => {
+    const fotos = new Map();
+    let ok = 0;
+
+    results.forEach(items => {
+      if (!items) return;
+      ok++;
+      items.forEach(({ tag, r }) => {
+        const f = fotos.get(r.public_id) || {
+          id: r.public_id,
+          t: r.created_at || '',
+          c: (r.context && r.context.custom && (r.context.custom.caption || r.context.custom.alt)) || '',
+          s: `https://res.cloudinary.com/${CLOUD}/image/upload/c_limit,w_900,q_auto,f_auto/v${r.version}/${r.public_id}.${r.format}`,
+          tags: []
+        };
+        f.tags.push(tag);
+        fotos.set(r.public_id, f);
+      });
+    });
+
+    GP.list = [...fotos.values()].sort((a, b) => String(b.t).localeCompare(String(a.t)));
+    GP.err = ok ? 0 : 1;
+    GP.at = Date.now();
+    GP.busy = 0;
+
+    if (cur == 'gal') R.gal();
+  });
 }
 const A = {
-  login() {
-    modal(
-      `<h3>Entrar</h3>` +
-      `<input type="text" id="ln" placeholder="Seu nome (aparece no fórum)" maxlength="24">` +
-      `<label><input type="checkbox" id="la"> Modo administrador de demonstração</label>` +
-      `<p class="nt">Este protótipo não valida identidades: não use este modo em um site publicado.</p>` +
-      `<button class="gg" data-a="gl"><b style="color:#4285f4;font:700 22px Arial">G</b> Continuar com Google</button>` +
-      `<p class="nt">Demonstração local: nenhuma conta Google é conectada.</p>`
-    );
-  },
-
-  gl() {
-    const n = $('#ln').value.trim() || 'Aluno';
-    const k = n.toLowerCase();
-
-    S.us[k] = S.us[k] || {
-      n,
-      tags: [],
-      vip: 0,
-      av: null
-    };
-
-    S.us[k].adm = $('#la').checked ? 1 : 0;
-    S.uk = k;
-
-    sv();
-    close();
-    acct();
-    R[cur]();
-
-    toast('Bem-vindo, ' + n + '!');
-  },
-
   logout() {
     S.uk = null;
 
@@ -664,7 +640,7 @@ const A = {
       `<h3>${esc(u.n)}</h3>` +
       `<div class="hd">${av(u)}${chips(u)}</div>` +
       `<label class="btn">Trocar foto<input type="file" accept="image/*" hidden data-f="av"></label>` +
-      `<p class="nt">${u.vip ? 'Seu perfil aceita GIFs animados.' : 'Foto animada (GIF) é benefício VIP. Veja na Loja.'}</p>` +
+      `<p class="nt">${u.vip ? 'Seu perfil aceita GIFs animados.' : 'Foto animada (GIF) é benefício VIP.'}</p>` +
       `<button class="btn" data-a="logout">Sair da conta</button>`
     );
   },
@@ -771,43 +747,6 @@ const A = {
 
   game(i) {
     toast('Aqui abre o jogo “' + GM[i][0] + '”.');
-  },
-
-  buy(k) {
-    const u = me();
-
-    if (!u) return A.login();
-
-    const v = k == 'vip';
-    const t = v ? ['VIP', '', 19.9] : TG[k];
-
-    if (v ? u.vip : u.tags.includes(k)) {
-      return toast('Você já tem este item.');
-    }
-
-    modal(
-      `<h3>${v ? 'Plano VIP' : 'Tag ' + t[0]}</h3>` +
-      `<p class="pr">${brl(t[2])}</p>` +
-      `<p class="nt">Simulação: no site oficial entra aqui o pagamento por Pix ou cartão. Nenhum valor é cobrado.</p>` +
-      `<button class="btn" data-a="pay:${k}">Confirmar pagamento de teste</button>`
-    );
-  },
-
-  pay(k) {
-    const u = me();
-
-    if (k == 'vip') {
-      u.vip = 1;
-    } else {
-      u.tags.push(k);
-    }
-
-    sv();
-    close();
-    acct();
-    R.shop();
-
-    toast('Compra concluída!');
   }
 };
 

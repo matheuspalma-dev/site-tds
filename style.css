@@ -194,8 +194,8 @@ nav button {
   border-bottom: 3px solid transparent;
 }
 
-nav button.on,
-nav button:hover {
+/* Selecionado (página atual) = traço branco; hover = traço dourado (camada 4) */
+nav button.on {
   border-color: #fff;
 }
 
@@ -773,6 +773,7 @@ figcaption {
 }
 
 /* Ícone do jogo (a forma vem da variável --cp, definida pelo JS) */
+/* Ícone do jogo: a forma vem da variável --cp, definida pelo JS */
 .gm i {
   width: 84px;
   height: 84px;
@@ -1889,7 +1890,8 @@ select {
 }
 
 .gm:hover {
-  transform: translateY(-4px) rotate(-.5deg);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px #102d5018;
   border-color: var(--n);
   background: var(--surface);
 }
@@ -2134,13 +2136,13 @@ nav button {
   transition: color .2s ease, background-color .2s ease, transform .2s var(--ease-school);
 }
 
-/* Linha dourada que cresce embaixo do botão ativo/hover */
+/* Linha dourada que cresce embaixo do botão com o mouse por cima */
 nav button:not(.shop)::after {
   content: "";
   position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 3px;
+  left: 0;
+  right: 0;
+  bottom: -3px;
   height: 3px;
   background: var(--gold);
   transform: scaleX(0);
@@ -2148,8 +2150,7 @@ nav button:not(.shop)::after {
   transition: transform .24s var(--ease-school);
 }
 
-nav button:not(.shop):hover::after,
-nav button:not(.shop).on::after {
+nav button:not(.shop):hover::after {
   transform: scaleX(1);
 }
 
@@ -2301,4 +2302,133 @@ select,
     scroll-behavior: auto !important;
     transition: none !important;
   }
+}
+
+
+/* ##########################################################################
+   CORREÇÃO — Cartão da cantina legível no tema escuro
+   No tema escuro o fundo do cartão (--paper) fica azul-escuro, então o texto
+   escuro ficava quase invisível. Aqui o texto passa a ser claro.
+   ########################################################################## */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) .cb {
+    color: #f4f7ff;
+  }
+
+  :root:not([data-theme=light]) .cb h3 {
+    color: var(--gold);
+  }
+
+  :root:not([data-theme=light]) .cb li {
+    border-color: #ffffff40;
+  }
+}
+
+:root[data-theme=dark] .cb {
+  color: #f4f7ff;
+}
+
+:root[data-theme=dark] .cb h3 {
+  color: var(--gold);
+}
+
+:root[data-theme=dark] .cb li {
+  border-color: #ffffff40;
+}
+
+
+/* ##########################################################################
+   RODAPÉ
+   ########################################################################## */
+
+footer {
+  padding: 0;
+  text-align: left;
+  background: var(--n2);
+  color: #dce6f4;
+  border-top: 6px solid var(--gold);
+  border-bottom: 0;
+  font-size: 15px;
+}
+
+.ft {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: 40px clamp(20px, 5vw, 64px) 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.fb {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.fb strong {
+  display: block;
+  font: 22px/1.1 "Alfa Slab One", Georgia, serif;
+  color: #fff;
+}
+
+.fb span {
+  display: block;
+  margin-top: 4px;
+  color: #b7c7de;
+}
+
+.fn {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+}
+
+.fn button {
+  min-height: 44px;
+  padding: 4px 2px;
+  color: #dce6f4;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+
+.fn button:hover {
+  color: #fff;
+  border-color: var(--gold);
+}
+
+.fc {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: 18px clamp(20px, 5vw, 64px) 26px;
+  border-top: 1px solid #ffffff1f;
+  font-size: 13px;
+  color: #9fb2cc;
+}
+
+@media (max-width: 560px) {
+  .ft {
+    padding-top: 32px;
+    gap: 18px;
+  }
+}
+
+/* Links do rodapé (páginas que usam <a> em vez de <button>, como jogos.html) */
+.fn a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 4px 2px;
+  color: #dce6f4;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+
+.fn a:hover {
+  color: #fff;
+  border-color: var(--gold);
 }

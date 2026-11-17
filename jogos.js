@@ -31,7 +31,8 @@ const GAMES = [
     n: 'Street Combat',
     s: 'ST',
     d: 'Lute contra inimigos em um jogo de ação estilo arcade.',
-    cp: 'circle(50%)',
+    // Marreta inclinada (estilo Chapolin). O "ST" fica dentro da cabeça da marreta.
+    cp: 'polygon(25.7% 11.9%,29.7% 13.0%,28.9% 15.8%,85.4% 32.1%,86.2% 29.2%,90.2% 30.4%,91.4% 32.5%,76.5% 84.6%,74.3% 85.8%,70.3% 84.6%,71.1% 81.8%,49.7% 75.6%,45.1% 91.5%,46.8% 92.0%,45.2% 97.6%,28.2% 92.8%,29.8% 87.1%,31.5% 87.6%,36.1% 71.8%,14.6% 65.6%,13.8% 68.4%,9.8% 67.3%,8.6% 65.1%,23.5% 13.1%)',
     href: 'jogos/Street Combat/index.html'
   },
   {
