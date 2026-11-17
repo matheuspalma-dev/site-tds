@@ -6,21 +6,22 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>Jogos — Colégio TDS</title>
 
-  <!-- Fontes do Google: Alfa Slab One (títulos) e Atkinson Hyperlegible (texto) -->
-  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Fontes do Google: Alfa Slab One (títulos) e Atkinson Hyperlegible (texto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Estilos compartilhados com o resto do site -->
-  <link rel="stylesheet" href="style.css">
+    <!-- Estilos compartilhados com o resto do site -->
+    <link rel="stylesheet" href="style.css">
 
-  <!-- Ajustes só desta página (precisa vir DEPOIS do style.css para sobrescrevê-lo) -->
-  <link rel="stylesheet" href="jogos.css">
+    <!-- Ajustes só desta página (precisa vir DEPOIS do style.css para sobrescrevê-lo) -->
+    <link rel="stylesheet" href="jogos.css">
 </head>
 
 <!-- A classe "games-page" ativa os estilos específicos de jogos.css -->
+
 <body class="games-page">
 
-  <!-- Barra superior -->
-  <div class="bar"><span>Rolândia · Paraná</span></div>
+    <!-- Barra superior -->
+    <div class="bar"><span>Rolândia · Paraná</span></div>
 
   <!-- Cabeçalho: logo (volta ao Início) e navegação -->
   <header>
@@ -34,10 +35,10 @@
       <span>TDS</span>
     </a>
 
-    <nav aria-label="Navegação principal">
-      <a href="index.html" aria-label="Ir para Início">Início</a>
-    </nav>
-  </header>
+        <nav aria-label="Navegação principal">
+            <a href="index.html" aria-label="Ir para Início">Início</a>
+        </nav>
+    </header>
 
   <!-- Conteúdo principal -->
   <main>
@@ -47,18 +48,18 @@
       <p>Feitos por alunos do TDS. Toque no logo para jogar.</p>
     </div>
 
-    <!-- Grade de jogos: os cartões são criados pelo jogos.js -->
-    <div class="gs" id="gg"></div>
-  </main>
+        <!-- Grade de jogos: os cartões são criados pelo jogos.js -->
+        <div class="gs" id="gg"></div>
+    </main>
 
   <!-- Rodapé -->
   <footer>Colégio TDS · Rolândia, Paraná · Protótipo do site da escola</footer>
 
-  <!-- Mensagem temporária (toast) usada pelo jogos.js -->
-  <div class="ts" id="ts" role="status"></div>
+    <!-- Mensagem temporária (toast) usada pelo jogos.js -->
+    <div class="ts" id="ts" role="status"></div>
 
-  <!-- Lógica da página (no fim do body para que os elementos acima já existam) -->
-  <script src="jogos.js"></script>
+    <!-- Lógica da página (no fim do body para que os elementos acima já existam) -->
+    <script src="jogos.js"></script>
 </body>
 
 </html>
