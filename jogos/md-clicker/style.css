@@ -1,3 +1,4 @@
+
 *,
 *::before,
 *::after {
@@ -27,8 +28,8 @@ body {
 }
 
 /* ---- Botão para voltar ao site ---- */
+
 .voltar {
-    /* Fica no topo, centralizado: longe da pontuação (MD Coins), que fica no canto esquerdo */
     position: fixed;
     top: 1.5vh;
     left: 0;
@@ -207,7 +208,7 @@ h1 {
     right: 1.2vh;
 }
 
-#BtnsUPGM>p {
+#BtnsUPGM > p {
     margin: 0;
     font-family: "Bebas Neue", "Oswald", sans-serif;
     letter-spacing: 0.3vh;
@@ -244,21 +245,21 @@ h1 {
     gap: 1vh;
 }
 
-.hoverdiv>p {
+.hoverdiv > p {
     margin: 0;
     font-family: "Oswald", sans-serif;
     line-height: 1.3 !important;
     color: #241a08;
 }
 
-.hoverdiv>p:first-child {
+.hoverdiv > p:first-child {
     font-size: 1.6vh;
     letter-spacing: 0.2vh;
     text-transform: uppercase;
     color: #8a7451;
 }
 
-.hoverdiv>p:last-child {
+.hoverdiv > p:last-child {
     font-size: 3.2vh;
     font-weight: 600;
     color: #b8451f;
@@ -334,14 +335,28 @@ h1 {
     height: 50vh;
 }
 
-/* ==========================================================================
-   RESPONSIVIDADE
-   ========================================================================== */
+/* ==================================================
+   ANIMAÇÃO DO FOGUETE
+   ================================================== */
 
-/* ---- Tablets / telas médias (até 1100px) ---- */
+   #clickAnimation {
+    position: absolute;
+    top: -8vh; /* Antes era -22vh */
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(24vw, 170px);
+    height: min(43vh, 250px);
+    object-fit: contain;
+    image-rendering: pixelated;
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* ==================================================
+   RESPONSIVIDADE
+   ================================================== */
+
 @media (max-width: 1100px) {
-    /* Em telas pequenas o botão fica no topo da página (rola junto)
-       e a área do jogo começa abaixo dele, então nunca cobre a pontuação */
     .voltar {
         position: absolute;
         top: 8px;
@@ -351,7 +366,6 @@ h1 {
         padding: 1vh 3vw;
     }
 
-    /* o aviso do Canhão de Névoa desce um pouco para não ficar atrás do botão de voltar */
     .canhaoDnevoa {
         top: 60px;
     }
@@ -426,16 +440,19 @@ h1 {
         height: clamp(120px, 30vw, 220px);
     }
 
+    #clickAnimation {
+        top: 0;
+        width: clamp(90px, 25vw, 145px);
+        height: clamp(150px, 42vw, 220px);
+    }
+
     .VC {
         position: relative;
         bottom: 0;
         margin-top: 1vh;
     }
-
-
 }
 
-/* ---- Celulares (até 600px) ---- */
 @media (max-width: 600px) {
     .Stage {
         width: 96vw;
@@ -470,10 +487,16 @@ h1 {
         width: clamp(110px, 45vw, 180px);
         height: clamp(110px, 45vw, 180px);
     }
+
+    #clickAnimation {
+        top: 0;
+        width: clamp(80px, 24vw, 125px);
+        height: clamp(135px, 40vw, 190px);
+    }
 }
 
-/* ---- Telas sem hover (celular/tablet touch): mostra os preços dos
-       upgrades sempre visíveis em vez de depender de :hover ---- */
+/* ---- Celulares e tablets com tela touch ---- */
+
 @media (hover: none) {
     .hoverdiv {
         display: flex !important;
