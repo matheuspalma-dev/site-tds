@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>O CÉU É O LIMITE - Jogo Arcade</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <a id="exit-game" href="../../jogos.html" aria-label="Sair do jogo e voltar à lista de jogos">Sair do jogo</a>
+        <!-- Canvas Principal do Jogo -->
+        <canvas id="gameCanvas" width="480" height="760"></canvas>
+
+        <!-- HUD Superior / Inferior (Durante a partida) -->
+        <div id="hud-overlay" class="hud-screen hidden">
+            <div class="hud-top-bar">
+                <div class="hud-stat-box">
+                    <span class="hud-label">Pontos</span>
+                    <span id="hud-score" class="hud-value">0</span>
+                </div>
+                <div class="hud-divider"></div>
+                <div class="hud-stat-box">
+                    <span class="hud-label">Altura</span>
+                    <span id="hud-height" class="hud-value text-emerald">0 m</span>
+                </div>
+                <div class="hud-divider"></div>
+                <div class="hud-stat-box">
+                    <span class="hud-label">Recorde</span>
+                    <span id="hud-record" class="hud-value text-amber">0</span>
+                </div>
+                <div class="hud-actions">
+                    <button id="btn-sound-toggle" class="hud-btn" title="Som">🔊</button>
+                    <button id="btn-pause-toggle" class="hud-btn" title="Pausar (P)">⏸</button>
+                </div>
+            </div>
+
+            <!-- Barra de Proximidade da Lava -->
+            <div class="lava-danger-container">
+                <span class="lava-danger-icon">🔥</span>
+                <span class="lava-danger-label">LAVA</span>
+                <div class="lava-progress-bar">
+                    <div id="lava-meter-fill" class="lava-fill"></div>
+                </div>
+                <span id="lava-meter-text" class="lava-percent">0%</span>
+            </div>
+
+            <!-- Banner Central de Nível e Recorde -->
+            <div id="hud-banner" class="hud-banner hidden"></div>
+
+            <!-- Widget do Herói e Habilidade -->
+            <div class="hud-bottom-bar">
+                <div class="hud-hero-info">
+                    <div id="hud-hero-avatar" class="hud-hero-avatar">LE</div>
+                    <div>
+                        <div id="hud-hero-name" class="hud-hero-title">Leo</div>
+                        <div id="hud-hero-type" class="hud-hero-subtitle">Equilibrado</div>
+                    </div>
+                </div>
+
+                <button id="hud-ability-btn" class="hud-ability-btn">
+                    <span class="ability-icon">⚡</span>
+                    <div class="ability-text">
+                        <div id="hud-ability-name" class="ability-title">IMPULSO</div>
+                        <div id="hud-ability-cd" class="ability-status">PRONTO (E)</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tela Inicial / Menu Principal -->
+        <div id="main-menu" class="overlay-screen active">
+            <div class="menu-header">
+                <div class="menu-record-pill">
+                    🏆 Recorde: <strong id="menu-highscore-val">0</strong>
+                </div>
+                <button id="btn-menu-audio" class="menu-audio-btn">🔊</button>
+            </div>
+
+            <div class="menu-center">
+                <div class="menu-badge">✨ Arcade de Sobrevivência Vertical</div>
+                <h1 class="menu-title">O CÉU É O LIMITE</h1>
+                <p class="menu-subtitle">"Até onde você consegue chegar?"</p>
+
+                <div id="menu-char-card" class="menu-char-preview">
+                    <div id="menu-char-icon" class="char-avatar-big">LE</div>
+                    <div class="char-preview-info">
+                        <span class="char-preview-tag">Herói Selecionado</span>
+                        <div id="menu-char-name" class="char-preview-name">Leo (Equilibrado)</div>
+                        <div id="menu-char-ability" class="char-preview-ability">⚡ Habilidade: Impulso</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-actions">
+                <button id="btn-play-now" class="btn btn-primary">▶ JOGAR AGORA</button>
+                <div class="menu-btn-row">
+                    <button id="btn-open-characters" class="btn btn-secondary">👥 Personagens</button>
+                    <button id="btn-open-rules" class="btn btn-secondary">❓ Como Jogar</button>
+                    <button id="btn-open-ranking" class="btn btn-secondary">🏆 Ranking</button>
+                </div>
+                <p class="menu-footer-hint">Use <strong>A / D</strong> para mover • <strong>ESPAÇO</strong> para pular • <strong>E</strong> para habilidade</p>
+            </div>
+        </div>
+
+        <!-- Tela de Seleção de Personagens (6 Heróis) -->
+        <div id="char-select-screen" class="overlay-screen hidden">
+            <div class="screen-header">
+                <button id="btn-char-back" class="btn-icon-text">← Voltar</button>
+                <h2>ESCOLHA SEU PERSONAGEM</h2>
+                <button id="btn-char-play" class="btn btn-primary-small">Jogar</button>
+            </div>
+
+            <div class="char-grid" id="char-grid-container">
+                <!-- Injetado dinamicamente pelo game.js -->
+            </div>
+        </div>
+
+        <!-- Tela de Como Jogar -->
+        <div id="how-to-play-screen" class="overlay-screen hidden">
+            <div class="screen-header">
+                <button id="btn-rules-back" class="btn-icon-text">← Voltar</button>
+                <h2>COMO JOGAR</h2>
+                <button id="btn-rules-play" class="btn btn-primary-small">Jogar</button>
+            </div>
+
+            <div class="rules-content">
+                <div class="rules-card">
+                    <h3>🔥 Objetivo de Sobrevivência</h3>
+                    <p>Uma enorme massa de lava está subindo pelas montanhas vulcânicas! Salte continuamente entre as nuvens para alcançar a maior altitude possível.</p>
+                </div>
+
+                <div class="rules-card">
+                    <h3>⌨ Controles Desktop & Celular</h3>
+                    <p><strong>A / D ou ← →:</strong> Mover lateralmente</p>
+                    <p><strong>ESPAÇO / W / ↑:</strong> Pular</p>
+                    <p><strong>E ou SHIFT:</strong> Habilidade Especial</p>
+                    <p><strong>P / R / ESC:</strong> Pausa / Reinício / Menu</p>
+                </div>
+
+                <div class="rules-card full-width">
+                    <h3>☁ Plataformas de Nuvens</h3>
+                    <div class="cloud-legend">
+                        <div class="cloud-legend-item"><strong>Normal:</strong> Estável</div>
+                        <div class="cloud-legend-item"><strong>Pequena:</strong> Menor área</div>
+                        <div class="cloud-legend-item"><strong>Móvel:</strong> Desloca no ar</div>
+                        <div class="cloud-legend-item"><strong>Quebradiça:</strong> Cai ao pisar</div>
+                        <div class="cloud-legend-item"><strong>Impulso:</strong> Super salto</div>
+                        <div class="cloud-legend-item"><strong>Rara:</strong> +1500 pontos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela de Ranking / Leaderboard -->
+        <div id="ranking-screen" class="overlay-screen hidden">
+            <div class="screen-header">
+                <button id="btn-ranking-back" class="btn-icon-text">← Voltar</button>
+                <h2>🏆 RANKING GLOBAL</h2>
+                <button id="btn-ranking-play" class="btn btn-primary-small">Jogar</button>
+            </div>
+
+            <div class="ranking-filters" id="ranking-filter-bar">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="leo">Leo</button>
+                <button class="filter-btn" data-filter="flash">Flash</button>
+                <button class="filter-btn" data-filter="pulo">Pulo</button>
+                <button class="filter-btn" data-filter="rocky">Rocky</button>
+                <button class="filter-btn" data-filter="nuvem">Nuvem</button>
+                <button class="filter-btn" data-filter="fenix">Fênix</button>
+            </div>
+
+            <div class="ranking-table-container">
+                <div class="ranking-header-row">
+                    <span>Pos</span>
+                    <span>Jogador</span>
+                    <span>Herói</span>
+                    <span>Altura</span>
+                    <span>Pontos</span>
+                </div>
+                <div id="ranking-list" class="ranking-list">
+                    <div class="ranking-loading">Carregando pontuações...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Pausa -->
+        <div id="pause-screen" class="modal-overlay hidden">
+            <div class="modal-box">
+                <h2>JOGO PAUSADO</h2>
+                <div class="pause-stats">
+                    <div><span class="lbl">Altura</span><strong id="pause-height">0 m</strong></div>
+                    <div><span class="lbl">Pontos</span><strong id="pause-score">0</strong></div>
+                </div>
+                <button id="btn-pause-resume" class="btn btn-primary">▶ CONTINUAR (P)</button>
+                <button id="btn-pause-restart" class="btn btn-secondary">🔄 REINICIAR (R)</button>
+                <button id="btn-pause-menu" class="btn btn-text">🏠 Menu Principal (ESC)</button>
+            </div>
+        </div>
+
+        <!-- Modal de Game Over -->
+        <div id="game-over-screen" class="modal-overlay hidden">
+            <div class="modal-box">
+                <div id="gameover-title" class="gameover-title">A LAVA TE ALCANÇOU!</div>
+                <div class="gameover-stats">
+                    <div class="go-stat"><span class="lbl">ALTURA</span><strong id="go-height" class="text-emerald">0 m</strong></div>
+                    <div class="go-stat"><span class="lbl">PONTOS</span><strong id="go-score" class="text-sky">0</strong></div>
+                    <div class="go-stat"><span class="lbl">NÍVEL</span><strong id="go-level" class="text-purple">1</strong></div>
+                </div>
+
+                <div class="go-save-score">
+                    <input type="text" id="input-player-name" placeholder="Seu nome no ranking..." maxlength="20">
+                    <button id="btn-save-score" class="btn-save">Salvar</button>
+                </div>
+                <div id="save-status-msg" class="save-status"></div>
+
+                <button id="btn-gameover-restart" class="btn btn-primary">🔄 JOGAR NOVAMENTE (R)</button>
+                <div class="gameover-btn-row">
+                    <button id="btn-gameover-char" class="btn btn-secondary">Heróis</button>
+                    <button id="btn-gameover-ranking" class="btn btn-secondary">Ranking</button>
+                </div>
+                <button id="btn-gameover-menu" class="btn btn-text">Menu Inicial</button>
+            </div>
+        </div>
+
+        <!-- Controles Virtuais Touch para Celular -->
+        <div id="mobile-controls" class="mobile-controls">
+            <div class="mobile-group-left">
+                <button id="touch-btn-left" class="touch-btn" aria-label="Esquerda">◀</button>
+                <button id="touch-btn-right" class="touch-btn" aria-label="Direita">▶</button>
+            </div>
+            <div class="mobile-group-right">
+                <button id="touch-btn-ability" class="touch-btn ability-touch" aria-label="Habilidade">⚡</button>
+                <button id="touch-btn-jump" class="touch-btn jump-touch" aria-label="Pular">▲ PULO</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script com toda a lógica de física, partículas, procedural, áudio e tela -->
+    <script src="game.js"></script>
+<script>
+  document.getElementById("exit-game").addEventListener("click", function (event) {
+    if (window.Game && Game.state === "playing" && !window.confirm("Sair do jogo e voltar à lista de jogos?")) event.preventDefault();
+  });
+</script>
+</body>
+</html>
+
+

@@ -47,6 +47,13 @@ const GAMES = [
     d: 'Jogue Ping Pong Rivals',
     cp: 'polygon(50% 0,100% 50%,50% 100%,0 50%)',
     href: 'jogos/ping-pong-rivals/index.html'
+  },
+  {
+    n: 'O Céu é o Limite',
+    s: 'CL',
+    d: 'Salte entre nuvens, suba cada vez mais alto e fuja da lava.',
+    cp: 'circle(50%)',
+    href: 'jogos/O Ceu e o Limite/index.html'
   }
 ];
 
