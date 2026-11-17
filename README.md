@@ -1,4 +1,4 @@
-# Site institucional do Colégio SOUZA NAVES, C E-EF M PROFIS
+# Site institucional do Colégio TDS, C E-EF M PROFIS
 
 Este documento descreve as diretrizes de contribuição e o fluxo de trabalho Git da nossa equipe de desenvolvimento.
 
@@ -59,3 +59,4 @@ O Pull Request será analisado pelo Gerente de Projeto/Tech Lead.
 Se aprovado, o Merge será realizado para a branch development.
 
 Após o merge, a branch de funcionalidade poderá ser deletada.
+
