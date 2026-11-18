@@ -3,7 +3,7 @@
    Estrutura:
      1. Utilitários básicos
      2. Dados fixos
-     3. Filtro de palavras ofensivas
+     3. (removido: filtro do fórum antigo)
      4. Estado da aplicação e persistência
      5. Variáveis de controle da interface
      6. Componentes de UI reutilizáveis
@@ -31,14 +31,6 @@ const pad = n => String(n).padStart(2, '0');
 const K = (y, m, d) => y + '-' + pad(m + 1) + '-' + pad(d);
 const T = new Date();
 const TK = K(T.getFullYear(), T.getMonth(), T.getDate());
-
-const ago = t => {
-  const m = Math.round((Date.now() - t) / 6e4);
-  return m < 1 ? 'agora'
-    : m < 60 ? m + ' min'
-    : m < 1440 ? Math.round(m / 60) + ' h'
-    : Math.round(m / 1440) + ' d';
-};
 
 /* 2. DADOS FIXOS */
 
@@ -71,6 +63,10 @@ const CANTINA_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRlYhUUn-Kg
 
 const CLOUD = 'qmbdp1gb';
 
+/* FÓRUM (Flarum) */
+
+const FORUM_URL = 'https://souza.freeflarum.com/';
+
 const GT = [
   ['escola', 'Escola'],
   ['eventos', 'Eventos']
@@ -94,40 +90,12 @@ const CP = [
   'inset(0)'
 ];
 
-/* 3. FILTRO DE PALAVRAS OFENSIVAS */
-
-const N = t => t.toLowerCase()
-  .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-  .replace(/[@4]/g, 'a')
-  .replace(/3/g, 'e')
-  .replace(/[1!|]/g, 'i')
-  .replace(/0/g, 'o')
-  .replace(/[$5]/g, 's')
-  .replace(/(.)\1+/g, '$1')
-  .replace(/[^a-z]+/g, ' ')
-  .trim();
-
-const BW = ('porra caralho merda puta putaria fdp viado veado bicha buceta cuzao ' +
-  'arrombado babaca retardado mongol crioulo nazista imbecil otario vagabunda piranha')
-  .split(' ').map(N);
-
-const BP = [
-  'se mata', 'vou te matar', 'morte aos', 'negro sujo', 'preto sujo',
-  'volta pra africa', 'odeio negros', 'odeio gays', 'odeio judeus'
-].map(N);
-
-const bad = t => {
-  const s = N(t), w = s.split(' ');
-  return BW.some(b => w.includes(b) || w.includes(b + 's'))
-      || BP.some(p => (' ' + s + ' ').includes(' ' + p + ' '));
-};
-
 /* 4. ESTADO DA APLICAÇÃO */
 
 function seed() {
   const y = T.getFullYear(), m = T.getMonth();
   const n = new Date(y, m + 1, 0).getDate();
-  const s = { us: {}, uk: null, p: [], m: {}, e: {}, g: [] };
+  const s = { us: {}, uk: null, m: {}, e: {}, g: [] };
 
   for (let d = 1; d <= n; d++) {
     const w = new Date(y, m, d).getDay();
@@ -147,29 +115,6 @@ function seed() {
   E(24, 'Feira de Ciências', 'ev');
   E(26, 'Pizza da turma', 'esp');
 
-  s.p = [
-    {
-      n: 'Direção', adm: 1, tags: [],
-      t: 'Bem-vindos ao fórum do TDS! Aqui vale o respeito: ofensas e discurso de ódio são bloqueados automaticamente.',
-      d: Date.now() - 864e5, l: 12
-    },
-    {
-      n: 'Marina R.',
-      vip: 1,
-      tags: ['len'],
-      t: 'Quem vai jogar o Quiz do Saber na quinta? Quero montar um time!',
-      d: Date.now() - 18e6,
-      l: 5
-    },
-    {
-      n: 'Pedro H.',
-      tags: ['cra'],
-      t: 'O cardápio de hoje está muito bom. Quero repetir!',
-      d: Date.now() - 36e5,
-      l: 2
-    }
-  ];
-
   return s;
 }
 
@@ -180,6 +125,7 @@ try {
 } catch (e) {}
 
 S = S || seed();
+delete S.p; // apaga os posts do fórum antigo que ficaram salvos no navegador
 
 const sv = () => {
   try {
@@ -195,7 +141,6 @@ const me = () => S.uk && S.us[S.uk];
 
 let cur = 'home';
 let busy = 0;
-let PG = null;
 let gk = 't';
 let GP = { list: [], at: 0, busy: 0, err: 0 };
 let cy = T.getFullYear();
@@ -482,31 +427,6 @@ const R = {
     $('#hb').innerHTML = `<h3>Cantina hoje</h3>${menuHtml}${nextHtml}`;
   },
 
-  forum() {
-    const u = me();
-
-    const composer = u
-      ? `<div class="cmp"><textarea id="tx" rows="3" maxlength="400" placeholder="Escreva algo para a turma…"></textarea>` +
-        `<p class="er" id="er"></p>` +
-        `<div class="hd"><label class="btn">GIF<input type="file" accept="image/gif" hidden data-f="gf"></label>` +
-        `<span class="nt" id="gn"></span>` +
-        `<button class="btn" data-a="send" style="margin-left:auto">Publicar</button></div></div>`
-      : '';
-
-    const posts = S.p
-      .map((p, i) => [p, i])
-      .sort((a, b) => (b[0].adm || 0) - (a[0].adm || 0) || b[0].d - a[0].d)
-      .map(([p, i]) =>
-        `<article class="po${p.adm ? ' adm' : ''}${p.vip ? ' vip' : ''}">${av(p)}<div>` +
-        `<div class="hd"><strong>${esc(p.n)}</strong>${chips(p)}<time>${ago(p.d)}</time></div>` +
-        `<p>${esc(p.t)}</p>` +
-        `${p.g ? `<img class="gif" src="${p.g}" alt="GIF enviado">` : ''}` +
-        `<button class="lk" data-a="like:${i}">♥ ${p.l || 0}</button></div></article>`
-      ).join('');
-
-    $('#fb').innerHTML = composer + posts;
-  },
-
   games() {
     $('#gg').innerHTML = GM.map((g, i) =>
       `<button class="gm" data-a="game:${i}"><i style="--cp:${CP[i]}">${g[1]}</i>${g[0]}</button>`
@@ -645,44 +565,6 @@ const A = {
     );
   },
 
-  send() {
-    const u = me();
-    const t = $('#tx').value.trim();
-
-    if (!t && !PG) return;
-
-    if (bad(t)) {
-      $('#er').textContent = 'Mensagem bloqueada: o fórum não permite ofensas nem discurso de ódio. Reescreva com respeito.';
-      return;
-    }
-
-    S.p.push({
-      n: u.n,
-      av: u.av,
-      adm: u.adm,
-      vip: u.vip,
-      tags: u.tags,
-      t,
-      g: PG,
-      d: Date.now(),
-      l: 0
-    });
-
-    PG = null;
-
-    sv();
-    R.forum();
-
-    toast('Publicado!');
-  },
-
-  like(i) {
-    S.p[i].l = (S.p[i].l || 0) + 1;
-
-    sv();
-    R.forum();
-  },
-
   day(k) {
     sel = k;
     R.cal();
@@ -776,10 +658,6 @@ function rd(f, k) {
 
       toast('Foto atualizada!');
 
-    } else if (k == 'gf') {
-      PG = d;
-      $('#gn').textContent = 'GIF anexado: ' + f.name;
-
     } else {
       S.g.push({
         y: 'Novo',
@@ -807,6 +685,12 @@ document.addEventListener('click', e => {
 
     if (b.dataset.v == 'games') {
       location.href = 'jogos.html';
+      return;
+    }
+
+    // O fórum fica fora do site: vai direto para o Flarum.
+    if (b.dataset.v == 'forum') {
+      window.open(FORUM_URL);
       return;
     }
 
